@@ -7,13 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Integer.getInteger;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +57,38 @@ public class MainActivity extends AppCompatActivity {
 
         ItemAdapter adapter = new ItemAdapter(itemListing);
         rv.setAdapter(adapter);
+
+        final EditText hpNumber = (EditText) findViewById(R.id.hpNumber);
+        final ProgressBar hpBar = (ProgressBar) findViewById(R.id.hpBar);
+        hpBar.setMax(100);
+        hpBar.setProgress(50,true);
+
+       hpNumber.addTextChangedListener(new TextWatcher() {
+           @Override
+           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+               //intentionally blank
+           }
+
+           @Override
+           public void onTextChanged(CharSequence s, int start, int before, int count) {
+               if(s.toString().equals(""))
+               {
+                   hpBar.setProgress(0,true);
+                   hpNumber.setText("0");
+               }else
+               {
+
+                   hpBar.setProgress(Integer.parseInt(s.toString()),true);
+
+               }
+
+           }
+
+           @Override
+           public void afterTextChanged(Editable s) {
+            //intentionally blank
+           }
+       });
 
     }
 
