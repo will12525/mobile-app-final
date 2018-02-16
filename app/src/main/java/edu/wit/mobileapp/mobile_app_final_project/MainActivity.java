@@ -12,6 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -35,6 +38,19 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rv = (RecyclerView) findViewById(R.id.attackList);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(llm);
+
+        List<Item> itemListing = new ArrayList<Item>();
+
+        itemListing.add(new Item("Xtreme Teen Bible","1d8", "holy", R.drawable.ic_dual_blades));
+        itemListing.add(new Item("Umbra Staff","1d12", "LUP", R.drawable.ic_dual_blades));
+        itemListing.add(new Item("Railsplitter","1d20", "Trees", R.drawable.ic_dual_blades));
+        itemListing.add(new Item("Flaming Raging Poisoning Sword of Doom","2d12", "Taako", R.drawable.ic_dual_blades));
+
+        itemListing.add(new Item("Magic Missle","3d4","Abraka fuck you!",R.drawable.ic_battle_healing_on));
+
+
+        ItemAdapter adapter = new ItemAdapter(itemListing);
+        rv.setAdapter(adapter);
 
     }
 

@@ -28,12 +28,13 @@ public class ItemAdapter extends  RecyclerView.Adapter<ItemAdapter.ItemViewHolde
         ItemViewHolder(View itemView){
          super(itemView);
 
-         cv = (CardView) itemView.findViewById(R.id.itemIcon);
+         cv = (CardView) itemView.findViewById(R.id.cardView);
          itemName = (TextView) itemView.findViewById(R.id.itemText);
-         damageDice = (TextView) itemView.findViewById(R.id.itemRoll);
+         damageDice = (TextView) itemView.findViewById(R.id.damageDiceView);
          property = (TextView) itemView.findViewById(R.id.propertyView);
 
-         itemImage = (ImageView) itemView.findViewById(R.id.itemIcon);
+        itemImage = (ImageView) itemView.findViewById(R.id.itemIcon);
+
         }
     }
 
@@ -50,7 +51,7 @@ public class ItemAdapter extends  RecyclerView.Adapter<ItemAdapter.ItemViewHolde
     }
 
     @Override
-    public ItemViewHolder onCreateViewHOlder(ViewGroup viewGroup, int i)
+    public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i)
     {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.attack_item, viewGroup, false);
         ItemViewHolder ivh = new ItemViewHolder(v);
@@ -61,6 +62,15 @@ public class ItemAdapter extends  RecyclerView.Adapter<ItemAdapter.ItemViewHolde
     @Override
     public void onBindViewHolder(ItemViewHolder itemViewHolder, int i)
     {
-        itemViewHolder.itemImage.setImageResource(items.get(i).imageId);
+        itemViewHolder.itemImage.setImageResource(itemListing.get(i).photoId);
+        itemViewHolder.damageDice.setText(itemListing.get(i).damageDice);
+        itemViewHolder.property.setText(itemListing.get(i).property);
+        itemViewHolder.itemName.setText(itemListing.get(i).name);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView)
+    {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 }

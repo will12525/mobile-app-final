@@ -13,7 +13,7 @@ public class Item {
     String damageDice;
     String property;
 
-    int photoId;
+   int photoId;
 
     Item(String name, String dice,String property, int photoId)
     {
@@ -37,4 +37,8 @@ public class Item {
 
         Items.add(new Item("Flaming Raging Poisoning Sword of Doom","2d12", "Taako", R.drawable.ic_dual_blades));
     }
+
+
 }
+
+
