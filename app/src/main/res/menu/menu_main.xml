@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.wit.mobileapp.mobile_app_final_project.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+
+    <item android:title="@string/action_settings"/>
+    <item android:title="boop" />
+    <item android:title="action testing"/>
+
 </menu>

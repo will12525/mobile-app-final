@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="edu.wit.mobileapp.mobile_app_final_project.MainActivity">
+
+    <item android:title="@string/dice_roll_4"/>
+    <item android:title="@string/dice_roll_6"/>
+    <item android:title="@string/dice_roll_8"/>
+    <item android:title="@string/dice_roll_10"/>
+    <item android:title="@string/dice_roll_12"/>
+    <item android:title="@string/dice_roll_20"/>
+
+</menu>
