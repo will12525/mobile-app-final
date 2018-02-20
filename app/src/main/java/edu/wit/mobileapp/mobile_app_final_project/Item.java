@@ -25,18 +25,6 @@ public class Item {
 
     private List<Item> Items;
 
-    private void intitalize()
-    {
-        Items = new ArrayList<>();
-
-        Items.add(new Item("Xtreme Teen Bible","1d8", "holy", R.drawable.ic_dual_blades));
-
-        Items.add(new Item("Umbra Staff","1d12", "LUP", R.drawable.ic_dual_blades));
-
-        Items.add(new Item("Railsplitter","1d20", "Trees", R.drawable.ic_dual_blades));
-
-        Items.add(new Item("Flaming Raging Poisoning Sword of Doom","2d12", "Taako", R.drawable.ic_dual_blades));
-    }
 
 
 }

@@ -1,5 +1,7 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -71,14 +73,38 @@ public class MainActivity extends AppCompatActivity {
 
            @Override
            public void onTextChanged(CharSequence s, int start, int before, int count) {
-               if(s.toString().equals(""))
+               if(s.toString().equals("") || s.toString().equals("-"))
                {
-                   hpBar.setProgress(0,true);
-                   hpNumber.setText("0");
+                  // hpBar.setProgress(0,true);
+                  // hpNumber.setText("0");
+                  // hpNumber.setSelection(1);
                }else
                {
 
                    hpBar.setProgress(Integer.parseInt(s.toString()),true);
+
+                   int hp = Integer.parseInt(s.toString());
+
+
+
+                   if(hp >= 100)
+                   {
+                       hpBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+                   }
+                   if( hp <= 99 && hp > 50)
+                   {
+                       hpBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+                   }
+                   if( hp < 50 && hp >= 26)
+                   {
+                       hpBar.setProgressTintList(ColorStateList.valueOf(Color.argb(255,255,140,0))); // Orange
+                   }
+                   if(( hp <= 25))
+                   {
+                       hpBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                   }
+
+
 
                }
 
