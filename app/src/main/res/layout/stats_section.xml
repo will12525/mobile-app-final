@@ -102,9 +102,8 @@
             android:layout_marginTop="72dp"
             android:ems="10"
             android:inputType="number"
-            android:text="6969"
-            android:textAlignment="textStart"
             android:maxLength="4"
+            android:text="6969"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -119,7 +118,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Death Saves"
+            android:text="Death / Life Saves "
             app:layout_constraintBottom_toTopOf="@+id/initiativeEdit"
             app:layout_constraintEnd_toEndOf="@+id/initiativeEdit" />
 
@@ -132,10 +131,12 @@
             android:ems="10"
             android:inputType="number"
             android:maxLength="4"
+            android:text="20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TableLayout
+            android:id="@+id/saveChart"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_marginEnd="8dp"
@@ -147,21 +148,28 @@
                 android:layout_height="match_parent"
                 android:gravity="right">
 
+                <ImageView
+                    android:id="@+id/imageSmile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    app:srcCompat="@drawable/ic_mood_bad_black_24dp" />
+
                 <CheckBox
-                    android:id="@+id/checkBox4"
+                    android:id="@+id/deathSave1"
                     style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorAccent" />
 
                 <CheckBox
-                    android:id="@+id/checkBox3"
+                    android:id="@+id/deathSave2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorAccent" />
 
                 <CheckBox
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/deathSave3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorAccent" />
@@ -172,20 +180,30 @@
                 android:layout_height="match_parent"
                 android:gravity="right">
 
-                <CheckBox
-                    android:id="@+id/checkBox7"
+                <ImageView
+                    android:id="@+id/imageFrown"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    app:srcCompat="@drawable/ic_mood_black_24dp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/lifeSave1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@android:color/darker_gray" />
 
                 <CheckBox
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/lifeSave2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@android:color/darker_gray" />
+
+                <CheckBox
+                    android:id="@+id/lifeSave3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@android:color/darker_gray" />
             </TableRow>
 
         </TableLayout>
