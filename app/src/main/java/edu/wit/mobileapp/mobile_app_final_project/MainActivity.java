@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.combat_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
         List<Item> itemListing = new ArrayList<Item>();
 
-        itemListing.add(new Item("Xtreme Teen Bible","1d8", "holy", R.drawable.ic_dual_blades));
-        itemListing.add(new Item("Umbra Staff","1d12", "LUP", R.drawable.ic_dual_blades));
-        itemListing.add(new Item("Railsplitter","1d20", "Trees", R.drawable.ic_dual_blades));
-        itemListing.add(new Item("Flaming Raging Poisoning Sword of Doom","2d12", "Taako", R.drawable.ic_dual_blades));
+        itemListing.add(new Item("Xtreme Teen Bible","1d8", "holy", true));
+        itemListing.add(new Item("Umbra Staff","1d12", "LUP", true));
+        itemListing.add(new Item("Railsplitter","1d20", "Trees", false));
+        itemListing.add(new Item("Flaming Raging Poisoning Sword of Doom","2d12", "Taako", false));
 
-        itemListing.add(new Item("Magic Missle","3d4","Abraka fuck you!",R.drawable.ic_battle_healing_on));
+        itemListing.add(new Item("Magic Missle","3d4","Abraka fuck you!",true));
 
 
         ItemAdapter adapter = new ItemAdapter(itemListing);

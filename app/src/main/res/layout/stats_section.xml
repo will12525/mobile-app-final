@@ -23,7 +23,7 @@
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.145" />
@@ -53,6 +53,7 @@
             android:ems="10"
             android:inputType="numberSigned"
             android:maxLength="4"
+            android:selectAllOnFocus="false"
             android:text="100"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/textHP"
@@ -89,7 +90,7 @@
             android:layout_marginTop="76dp"
             android:ems="10"
             android:inputType="number"
-            android:text="6969"
+            android:maxLength="4"
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -103,7 +104,6 @@
             android:ems="10"
             android:inputType="number"
             android:maxLength="4"
-            android:text="6969"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,7 +118,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Death / Life Saves "
+            android:text="Saves"
             app:layout_constraintBottom_toTopOf="@+id/initiativeEdit"
             app:layout_constraintEnd_toEndOf="@+id/initiativeEdit" />
 
@@ -131,7 +131,6 @@
             android:ems="10"
             android:inputType="number"
             android:maxLength="4"
-            android:text="20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,13 +146,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="right">
-
-                <ImageView
-                    android:id="@+id/imageSmile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="3dp"
-                    app:srcCompat="@drawable/ic_mood_bad_black_24dp" />
 
                 <CheckBox
                     android:id="@+id/deathSave1"
@@ -179,13 +171,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="right">
-
-                <ImageView
-                    android:id="@+id/imageFrown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="3dp"
-                    app:srcCompat="@drawable/ic_mood_black_24dp" />
 
                 <CheckBox
                     android:id="@+id/lifeSave1"

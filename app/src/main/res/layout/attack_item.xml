@@ -48,7 +48,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/ic_gradient_black_24dp"
+            android:background="@drawable/ic_dice_roll"
             android:tint="@color/cardview_shadow_start_color"
             app:layout_constraintBottom_toBottomOf="@+id/itemText"
             app:layout_constraintEnd_toEndOf="parent"

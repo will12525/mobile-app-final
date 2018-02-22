@@ -47,7 +47,7 @@ public class ItemAdapter extends  RecyclerView.Adapter<ItemAdapter.ItemViewHolde
             @Override
             public void onClick(View v) {
 
-                CharSequence text = "Hello toast! " + itemName.getText();
+                CharSequence text = "The Roll for " + itemName.getText() + " goes here: \n" + damageDice.getText();
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(imageButton.getContext(), text, duration);
