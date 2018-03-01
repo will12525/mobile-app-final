@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Integer.getInteger;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        combatSetup();
+
+
+    }
+
+    public void combatSetup()
+    {
         RecyclerView rv = (RecyclerView) findViewById(R.id.attackList);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(llm);
@@ -64,59 +72,57 @@ public class MainActivity extends AppCompatActivity {
         hpBar.setMax(100);
         hpBar.setProgress(50,true);
 
-       hpNumber.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-               //intentionally blank
-           }
+        hpNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //intentionally blank
+            }
 
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-               if(s.toString().equals("") || s.toString().equals("-"))
-               {
-                  // hpBar.setProgress(0,true);
-                  // hpNumber.setText("0");
-                  // hpNumber.setSelection(1);
-               }else
-               {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().equals("") || s.toString().equals("-"))
+                {
+                    // hpBar.setProgress(0,true);
+                    // hpNumber.setText("0");
+                    // hpNumber.setSelection(1);
+                }else
+                {
 
-                   hpBar.setProgress(Integer.parseInt(s.toString()),true);
+                    hpBar.setProgress(Integer.parseInt(s.toString()),true);
 
-                   int hp = Integer.parseInt(s.toString());
-
-
-
-                   if(hp >= 100)
-                   {
-                       hpBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
-                   }
-                   if( hp <= 99 && hp > 50)
-                   {
-                       hpBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-                   }
-                   if( hp < 50 && hp >= 26)
-                   {
-                       hpBar.setProgressTintList(ColorStateList.valueOf(Color.argb(255,255,140,0))); // Orange
-                   }
-                   if(( hp <= 25))
-                   {
-                       hpBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
-                   }
+                    int hp = Integer.parseInt(s.toString());
 
 
 
-               }
+                    if(hp >= 100)
+                    {
+                        hpBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+                    }
+                    if( hp <= 99 && hp > 50)
+                    {
+                        hpBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+                    }
+                    if( hp < 50 && hp >= 26)
+                    {
+                        hpBar.setProgressTintList(ColorStateList.valueOf(Color.argb(255,255,140,0))); // Orange
+                    }
+                    if(( hp <= 25))
+                    {
+                        hpBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                    }
 
-           }
 
-           @Override
-           public void afterTextChanged(Editable s) {
-            //intentionally blank
-           }
-       });
 
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //intentionally blank
+            }
+        });
     }
-
 
 
 
