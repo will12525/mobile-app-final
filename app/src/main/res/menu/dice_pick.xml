@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="@string/dice_roll_4"/>
+    <item android:title="@string/dice_roll_6"/>
+    <item android:title="@string/dice_roll_8"/>
+    <item android:title="@string/dice_roll_10"/>
+    <item android:title="@string/dice_roll_12"/>
+    <item android:title="@string/dice_roll_20"/>
+
+</menu>
