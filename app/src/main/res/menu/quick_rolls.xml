@@ -3,11 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.wit.mobileapp.mobile_app_final_project.MainActivity">
 
-    <item android:title="@string/dice_roll_4"/>
-    <item android:title="@string/dice_roll_6"/>
-    <item android:title="@string/dice_roll_8"/>
-    <item android:title="@string/dice_roll_10"/>
-    <item android:title="@string/dice_roll_12"/>
-    <item android:title="@string/dice_roll_20"/>
+    <item android:title="@string/quick_acrobatics"/>
+    <item android:title="@string/quick_animal_handling"/>
+    <item android:title="@string/quick_arcana"/>
+    <item android:title="@string/quick_athletics"/>
+    <item android:title="@string/quick_deception"/>
+    <item android:title="@string/quick_history"/>
+    <item android:title="@string/quick_insight"/>
+    <item android:title="@string/quick_intimidation"/>
+    <item android:title="@string/quick_investigation"/>
+    <item android:title="@string/quick_medicine"/>
+    <item android:title="@string/quick_nature"/>
+    <item android:title="@string/quick_perception"/>
+    <item android:title="@string/quick_performance"/>
+    <item android:title="@string/quick_persuasion"/>
+    <item android:title="@string/quick_religion"/>
+    <item android:title="@string/quick_slight_of_hand"/>
+    <item android:title="@string/quick_stealth"/>
+    <item android:title="@string/quick_survival"/>
 
 </menu>

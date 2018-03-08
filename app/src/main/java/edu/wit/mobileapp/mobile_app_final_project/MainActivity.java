@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -34,12 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menuLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeToast("left toggled");
-                if (drawer.isDrawerOpen(GravityCompat.START)) {
-                    drawer.closeDrawer(GravityCompat.START);
-                } else {
-                    drawer.openDrawer(GravityCompat.START);
-                }
+                toggleDrawer(drawer,GravityCompat.START);
 
                 if(drawer.isDrawerOpen(GravityCompat.END)){
                     drawer.closeDrawer(GravityCompat.END);
@@ -50,12 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menuRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeToast("right toggled");
-                if (drawer.isDrawerOpen(GravityCompat.END)) {
-                    drawer.closeDrawer(GravityCompat.END);
-                } else {
-                    drawer.openDrawer(GravityCompat.END);
-                }
+                toggleDrawer(drawer, GravityCompat.END);
 
                 if(drawer.isDrawerOpen(GravityCompat.START)){
                     drawer.closeDrawer(GravityCompat.START);
@@ -72,10 +61,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
+    }
+
+    public void toggleDrawer(DrawerLayout drawer, int gravity){
+        if (drawer.isDrawerOpen(gravity)) {
+            drawer.closeDrawer(gravity);
+        } else {
+            drawer.openDrawer(gravity);
+        }
     }
 
     @Override
@@ -91,12 +87,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+       // makeToast("Item selected: "+id);
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if(id == R.string.quick_acrobatics){
+            makeToast("Acro selected");
+        }
+        /*if (id == R.id.action_settings) {
             makeToast("settings picked");
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -110,7 +109,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        makeToast(item.toString());
+        String itemValue = item.toString();
+        
+
+
+        String str = getString(R.string.quick_acrobatics);
+        makeToast("HERE");
+      //  makeToast(item.toString());
         return false;
     }
 }
