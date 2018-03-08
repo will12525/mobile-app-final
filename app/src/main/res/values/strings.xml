@@ -8,5 +8,59 @@
     <string name="dice_roll_12">D12</string>
     <string name="dice_roll_20">D20</string>
 
+    <string name="pc_name">Name: </string>
+    <string name="pc_level">Level: </string>
+    <string name="pc_alignment">Alignment</string>
+    <string name="cc_title">Character Creation</string>
+    <string name="pc_scores">Ability Scores: </string>
+    <string name="prof_text">Skill Proficiencies (Choose %1$d):</string>
+    <string name="confirm_character">Confirm Character</string>
+
+    <string-array name="alignments">
+        <item>Alignment</item>
+        <item>Lawful Good</item>
+        <item>Neutral Good</item>
+        <item>Chaotic Good</item>
+        <item>Lawful Neutral</item>
+        <item>True Neutral</item>
+        <item>Chaotic Neutral</item>
+        <item>Lawful Evil</item>
+        <item>Neutral Evil</item>
+        <item>Chaotic Evil</item>
+    </string-array>
+
+    <string-array name="races">
+        <item>Race</item>
+        <item>Aarakocra</item>
+        <item>Aasimar</item>
+        <item>Bugbear</item>
+        <item>Dragonborn</item>
+        <item>Dwarf</item>
+        <item>Elf</item>
+        <item>Feral Tiefling</item>
+        <item>Firblog</item>
+        <item>Genasi</item>
+        <item>Gnome</item>
+        <item>Goblin</item>
+        <item>Goliath</item>
+        <item>Half-Elf</item>
+        <item>Halfing</item>
+        <item>Half-Orc</item>
+        <item>Hobgoblin</item>
+        <item>Human</item>
+        <item>Kenku</item>
+        <item>Kobold</item>
+        <item>Lizardfolk</item>
+        <item>Orc</item>
+        <item>Tabaxi</item>
+        <item>Tiefling</item>
+        <item>Tortle</item>
+        <item>Triton</item>
+        <item>Yuan-ti</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
