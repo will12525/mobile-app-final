@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.wit.mobileapp.mobile_app_final_project.MainActivity">
 
-    <item android:title="@string/action_settings"/>
-    <item android:title="boop" />
-    <item android:title="action testing"/>
+    <item android:title="@string/character_creation"
+        android:id="@+id/character_creation"/>
+
 
 </menu>

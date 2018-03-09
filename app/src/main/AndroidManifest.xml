@@ -19,7 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ClassCreation" />
+        <activity android:name=".ClassCreation"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".DiceControl"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

@@ -34,6 +34,10 @@ public class ClassCreation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_class_creation);
+
+        new DrawerFunctions(this);
+
         Resources res = getResources();
 
         int randomInt1 = rollThreeDSix();
@@ -224,7 +228,7 @@ public class ClassCreation extends AppCompatActivity {
          */
 
 
-        Button confirm = (Button) findViewById(R.id.charConfirmButton);
+        final Button confirm = findViewById(R.id.charConfirmButton);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,39 +239,50 @@ public class ClassCreation extends AppCompatActivity {
                 //intent.setClass(ClassCreation.this, TestActivity.class);
 
 
-                EditText pcNameEdit = (EditText) findViewById(R.id.pcNameEdit);
+                EditText pcNameEdit = findViewById(R.id.pcNameEdit);
                 String pcName = pcNameEdit.getText().toString();
-                EditText pcLevelEdit = (EditText) findViewById(R.id.pcLevelEdit);
+                EditText pcLevelEdit = findViewById(R.id.pcLevelEdit);
                 String pcLevelString = pcLevelEdit.getText().toString();
                 int pcLevel = 0;
 
-                if (pcName == null || pcLevelString == "" || classChosen == "Class") {
+                Spinner spinner = findViewById(R.id.class_spinner);
+                String selectedClass = spinner.getSelectedItem().toString();
+
+                spinner = findViewById(R.id.race_spinner);
+                String selectedRace = spinner.getSelectedItem().toString();
+
+                spinner = findViewById(R.id.alignment_spinner);
+                String selectedAlignment = spinner.getSelectedItem().toString();
+
+
+
+                if (pcName.equals("") || pcLevelString.equals("") || classChosen.equals("Class")) {
                     Snackbar.make(v, "Please input/choose values for each field", Snackbar.LENGTH_SHORT).show();
+                    return;
                 } else {
                     try {
                         pcLevel = Integer.parseInt(pcLevelString);
                     } catch (NumberFormatException e) {
                         Snackbar.make(v, "Please input/choose values for each field", Snackbar.LENGTH_SHORT).show();
+                        return;
                     }
 
                 }
 
                 String strengthString = ((EditText) findViewById(R.id.str_edit)).getText().toString();
-                int strength = 0;
+                int strength;
                 String dexterityString = ((EditText) findViewById(R.id.dex_edit)).getText().toString();
-                int dexterity = 0;
+                int dexterity;
                 String constitutionString = ((EditText) findViewById(R.id.con_edit)).getText().toString();
-                int constitution = 0;
+                int constitution;
                 String intelligenceString = ((EditText) findViewById(R.id.int_edit)).getText().toString();
-                int intelligence = 0;
+                int intelligence;
                 String wisdomString = ((EditText) findViewById(R.id.wis_edit)).getText().toString();
-                int wisdom = 0;
+                int wisdom;
                 String charismaString = ((EditText) findViewById(R.id.cha_edit)).getText().toString();
-                int charisma = 0;
+                int charisma;
 
-                if (strengthString == "" || dexterityString == "" || constitutionString == "" || intelligenceString == "" || wisdomString == "" || charismaString == "") {
-                    Snackbar.make(v, "Please input/choose values for each field", Snackbar.LENGTH_SHORT).show();
-                } else if (strengthString != "" || dexterityString != "" || constitutionString != "" || intelligenceString != "" || wisdomString != "" || charismaString != "") {
+
                     try {
                         strength = Integer.parseInt(strengthString);
                         dexterity = Integer.parseInt(dexterityString);
@@ -275,12 +290,11 @@ public class ClassCreation extends AppCompatActivity {
                         intelligence = Integer.parseInt(intelligenceString);
                         wisdom = Integer.parseInt(wisdomString);
                         charisma = Integer.parseInt(charismaString);
-
-
                     } catch (NumberFormatException e) {
                         Snackbar.make(v, "Please input/choose values for each field", Snackbar.LENGTH_LONG).show();
+                        return;
                     }
-                }
+
 
                 bundle.putString("name", pcName);
                 bundle.putInt("level", pcLevel);
@@ -294,7 +308,10 @@ public class ClassCreation extends AppCompatActivity {
 
 
                 intent.putExtras(bundle);
-                startActivity(intent);
+                //startActivity(intent);
+
+                DatabaseHandler handler = new DatabaseHandler(getApplicationContext());
+                handler.createCharacter(pcName,pcLevel,strength,dexterity,constitution,intelligence,wisdom,charisma);
 
 
             }

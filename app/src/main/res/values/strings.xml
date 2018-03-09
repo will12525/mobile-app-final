@@ -34,6 +34,7 @@
     <string name="pc_scores">Ability Scores: </string>
     <string name="prof_text">Skill Proficiencies (Choose %1$d):</string>
     <string name="confirm_character">Confirm Character</string>
+    <string name="character_creation">Character Creation</string>
 
     <string-array name="alignments">
         <item>Alignment</item>
