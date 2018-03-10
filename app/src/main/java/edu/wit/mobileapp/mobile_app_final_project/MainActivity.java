@@ -17,6 +17,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawer;
@@ -29,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         new DrawerFunctions(this);
+
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        List<CharacterItem> list = db.getAllCharacters();
+
+
+
+        ListView listView = findViewById(R.id.my_grid_view);
+        listView.setAdapter(new CharacterDataAdapter(this,0, list));
+
 
     }
 

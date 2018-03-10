@@ -199,7 +199,7 @@ public class ClassCreation extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 classChosen = ((Spinner) findViewById(R.id.class_spinner)).getItemAtPosition(position).toString();
-                Log.v(TAG, "" + classChosen);
+               // Log.v(TAG, "" + classChosen);
                 bundle.putString("class", classChosen);
             }
 
@@ -245,18 +245,7 @@ public class ClassCreation extends AppCompatActivity {
                 String pcLevelString = pcLevelEdit.getText().toString();
                 int pcLevel = 0;
 
-                Spinner spinner = findViewById(R.id.class_spinner);
-                String selectedClass = spinner.getSelectedItem().toString();
-
-                spinner = findViewById(R.id.race_spinner);
-                String selectedRace = spinner.getSelectedItem().toString();
-
-                spinner = findViewById(R.id.alignment_spinner);
-                String selectedAlignment = spinner.getSelectedItem().toString();
-
-
-
-                if (pcName.equals("") || pcLevelString.equals("") || classChosen.equals("Class")) {
+                if (pcName.equals("") || pcLevelString.equals("") || classChosen.equals("Class") || alignmentChosen.equals("") || raceChosen.equals("")) {
                     Snackbar.make(v, "Please input/choose values for each field", Snackbar.LENGTH_SHORT).show();
                     return;
                 } else {
@@ -308,12 +297,10 @@ public class ClassCreation extends AppCompatActivity {
 
 
                 intent.putExtras(bundle);
-                //startActivity(intent);
 
                 DatabaseHandler handler = new DatabaseHandler(getApplicationContext());
-                handler.createCharacter(pcName,pcLevel,strength,dexterity,constitution,intelligence,wisdom,charisma);
-
-
+                handler.createCharacter(pcName,classChosen, raceChosen, alignmentChosen, pcLevel,strength,dexterity,constitution,intelligence,wisdom,charisma);
+                finish();
             }
 
         });
