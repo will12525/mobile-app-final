@@ -23,6 +23,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".DiceControl"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".inv"/>
+        <activity android:name=".spells" />
 
     </application>
 
