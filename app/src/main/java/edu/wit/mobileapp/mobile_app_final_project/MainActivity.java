@@ -50,22 +50,19 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.my_grid_view);
         listView.setAdapter(new CharacterDataAdapter(this,0, list));
 
-        combatSetup();
+       // combatSetup();
 
     }
 
-<<<<<<< HEAD
     public DatabaseHandler getDB(){
         return db;
     }
 
-=======
     public void combatSetup()
     {
         RecyclerView rv = (RecyclerView) findViewById(R.id.attackList);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(llm);
->>>>>>> fa1631c0d8ca974909142e82b95a7eaf0fb1f44c
 
         List<BattleItem> battleItemListing = new ArrayList<BattleItem>();
 
