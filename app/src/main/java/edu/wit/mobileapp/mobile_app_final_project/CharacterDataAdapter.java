@@ -83,7 +83,8 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
             @Override
             public void onClick(View v) {
                 DatabaseHandler db = new DatabaseHandler(mContext);
-                db.deleteChar(viewHolder.name.getText().toString());
+                db.updateSelected(viewHolder.name.getText().toString());
+                //db.deleteChar(viewHolder.name.getText().toString());
                 refresh();
             }
         });

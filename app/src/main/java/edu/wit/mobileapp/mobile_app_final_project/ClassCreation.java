@@ -30,13 +30,16 @@ public class ClassCreation extends AppCompatActivity {
     String raceChosen = "Race";
     String alignmentChosen = "Alignment";
     Bundle bundle = new Bundle();
+    DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_creation);
 
-        new DrawerFunctions(this);
+        db = new DatabaseHandler(getApplicationContext());
+
+        new DrawerFunctions(this,db);
 
         Resources res = getResources();
 
@@ -298,9 +301,15 @@ public class ClassCreation extends AppCompatActivity {
 
                 intent.putExtras(bundle);
 
-                DatabaseHandler handler = new DatabaseHandler(getApplicationContext());
-                handler.createCharacter(pcName,classChosen, raceChosen, alignmentChosen, pcLevel,strength,dexterity,constitution,intelligence,wisdom,charisma);
-                finish();
+
+                if(!db.createCharacter(pcName,classChosen, raceChosen, alignmentChosen, pcLevel,strength,dexterity,constitution,intelligence,wisdom,charisma)){
+                    Snackbar.make(v, "Character "+pcName+" already exists", Snackbar.LENGTH_LONG).show();
+                    Log.v("ClassCreation", "character "+pcName+" exists");
+                } else {
+                    finish();
+                    Log.v("ClassCreation", "character "+pcName+" added");
+                }
+
             }
 
         });

@@ -23,6 +23,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawer;
+    private DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        db = new DatabaseHandler(this);
+        new DrawerFunctions(this,db);
 
-        new DrawerFunctions(this);
-
-        DatabaseHandler db = new DatabaseHandler(this);
 
         List<CharacterItem> list = db.getAllCharacters();
 
@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(new CharacterDataAdapter(this,0, list));
 
 
+    }
+
+    public DatabaseHandler getDB(){
+        return db;
     }
 
 

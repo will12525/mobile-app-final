@@ -16,9 +16,29 @@
     <string name="quick_performance">Performance</string>
     <string name="quick_persuasion">Persuasion</string>
     <string name="quick_religion">Religion</string>
-    <string name="quick_slight_of_hand">Slight of Hand</string>
+    <string name="quick_sleight_of_hand">Sleight of Hand</string>
     <string name="quick_stealth">Stealth</string>
     <string name="quick_survival">Survival</string>
+    <string-array name="dice_types">
+        <item>D4</item>
+        <item>D6</item>
+        <item>D8</item>
+        <item>D10</item>
+        <item>D12</item>
+        <item>D20</item>
+    </string-array>
+    <string-array name="roll_count">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
     <string name="dice_roll_4">D4</string>
     <string name="dice_roll_6">D6</string>
     <string name="dice_roll_8">D8</string>
@@ -35,6 +55,10 @@
     <string name="prof_text">Skill Proficiencies (Choose %1$d):</string>
     <string name="confirm_character">Confirm Character</string>
     <string name="character_creation">Character Creation</string>
+    <string name="roll">Roll</string>
+    <string name="success_question">Success?</string>
+    <string name="success">Success</string>
+    <string name="failure">Failure</string>
 
     <string-array name="alignments">
         <item>Alignment</item>
