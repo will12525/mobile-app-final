@@ -101,18 +101,21 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     public CharacterItem getSelectedCharacter(){
-
+        CharacterItem characterItem = null;
         String query = "SELECT * FROM player_sheets WHERE selected=1";
         Cursor cursor = db.rawQuery(query, null);
+        if (cursor.getCount()>0) {
+            cursor.moveToFirst();
+            String name = cursor.getString(0);
+            String data = "";
+            for (int x = 1; x < cursor.getColumnCount(); x++) {
+                data = data + cursor.getString(x) + ",";
+            }
 
-        String name = cursor.getString(0);
-        String data = "";
-        for(int x = 1; x < cursor.getColumnCount();x++){
-            data = data + cursor.getString(x) + ",";
+            characterItem = new CharacterItem(name, data);
+
+
         }
-
-        CharacterItem characterItem = new CharacterItem(name,data);
-
         cursor.close();
         return characterItem;
     }

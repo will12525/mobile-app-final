@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -32,7 +33,10 @@ public class DrawerFunctions {
         //this.db = db;
         this.db = db;
 
-        final CoordinatorLayout testLayout = context.findViewById(R.id.drawer_stuff);
+        TextView titleStr = context.findViewById(R.id.txt_title);
+        titleStr.setText(db.getSelectedCharacter().name);
+
+        final CoordinatorLayout drawerContainer = context.findViewById(R.id.drawer_stuff);
 
         final ConstraintLayout mainContent = context.findViewById(R.id.content_main);
         final DrawerLayout drawer = context.findViewById(R.id.drawer_layout);
@@ -51,7 +55,7 @@ public class DrawerFunctions {
 
                 if(!drawer.isDrawerOpen(GravityCompat.START)){
                     drawer.closeDrawers();
-                    testLayout.bringToFront();
+                    drawerContainer.bringToFront();
                     drawer.openDrawer(GravityCompat.START);
 
                 } else {
@@ -67,7 +71,7 @@ public class DrawerFunctions {
 
                 if(!drawer.isDrawerOpen(GravityCompat.END)){
                     drawer.closeDrawers();
-                    testLayout.bringToFront();
+                    drawerContainer.bringToFront();
                     drawer.openDrawer(GravityCompat.END);
 
                 } else {

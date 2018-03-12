@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawer;
     private DatabaseHandler db;
+    private CharacterDataAdapter mCharacterDataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         List<CharacterItem> list = db.getAllCharacters();
 
 
-
         ListView listView = findViewById(R.id.my_grid_view);
-        listView.setAdapter(new CharacterDataAdapter(this,0, list));
+        mCharacterDataAdapter = new CharacterDataAdapter(this,0, list);
+        listView.setAdapter(mCharacterDataAdapter);
 
        // combatSetup();
 
@@ -140,6 +143,14 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
       //  toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
         toast.show();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mCharacterDataAdapter.refresh();
+        mCharacterDataAdapter.notifyDataSetChanged();
+        findViewById(R.id.content_main).bringToFront();
+
     }
 
 }

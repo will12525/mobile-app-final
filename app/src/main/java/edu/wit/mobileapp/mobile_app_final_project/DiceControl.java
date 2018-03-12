@@ -187,13 +187,12 @@ public class DiceControl extends AppCompatActivity {
         failure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(onDeathSaves){
                     RadioButton firstButton = findViewById(R.id.one_failure);
-                    if(firstButton.isSelected()){
+                    if(firstButton.isChecked()){
                         RadioButton secondButton = findViewById(R.id.two_failure);
-                        if(secondButton.isSelected()){
-                            findViewById(R.id.three_failure).setSelected(true);
+                        if(secondButton.isChecked()){
+                            ((RadioButton)findViewById(R.id.three_failure)).setChecked(true);
                         } else {
                             secondButton.setChecked(true);
                         }
@@ -204,7 +203,7 @@ public class DiceControl extends AppCompatActivity {
                     onDeathSaves = true;
                     getLayoutInflater().inflate(R.layout.death_saves,(ViewGroup)findViewById(R.id.extra_dice_content));
                     extraViewEnabled = true;
-                    findViewById(R.id.one_failure).setSelected(true);
+                    ((RadioButton)findViewById(R.id.one_failure)).setChecked(true);
                 }
             }
         });
@@ -214,21 +213,23 @@ public class DiceControl extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
-
                 if(onDeathSaves){
                     RadioButton firstButton = findViewById(R.id.one_success);
-                    if(firstButton.isSelected()){
+                    if(firstButton.isChecked()){
                         RadioButton secondButton = findViewById(R.id.two_success);
-                        if(secondButton.isSelected()){
-                            findViewById(R.id.three_success).setSelected(true);
+                        if(secondButton.isChecked()){
+                            ((RadioButton)findViewById(R.id.three_success)).setChecked(true);
                         } else {
                             secondButton.setChecked(true);
                         }
                     } else {
                         firstButton.setChecked(true);
                     }
+                } else {
+                    onDeathSaves = true;
+                    getLayoutInflater().inflate(R.layout.death_saves,(ViewGroup)findViewById(R.id.extra_dice_content));
+                    extraViewEnabled = true;
+                    ((RadioButton)findViewById(R.id.one_success)).setChecked(true);
                 }
 
             }
