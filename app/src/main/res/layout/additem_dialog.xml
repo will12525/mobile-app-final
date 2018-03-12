@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Layout File for the add Item dialog window.-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width ="350sp"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Name"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"/>
+    <EditText
+        android:id="@+id/itemNameIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Item Name"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Weight"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/itemWeightIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="Enter Item Weight"
+        android:textSize="25sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/spellName"
+        android:layout_width="301dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="PLACEHOLDER"
+        android:textSize="35sp" />
+
+    <Button
+        android:id="@+id/spDeleteBtn"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:background="@android:color/holo_red_light"
+        android:text="-"
+        android:textSize="35dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+
+</LinearLayout>

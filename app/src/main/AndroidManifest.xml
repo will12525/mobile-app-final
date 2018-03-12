@@ -24,6 +24,8 @@
         <activity android:name=".DiceControl"
 
             />
+        <activity android:name=".inv"/>
+        <activity android:name=".spells" />
 
     </application>
 
