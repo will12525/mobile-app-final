@@ -49,7 +49,7 @@
     </android.support.v7.widget.Toolbar>
 
     <TextView
-        android:id="@+id/rolled_value"
+        android:id="@+id/dice_rolled"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
@@ -70,13 +70,13 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rolled_value"
-        app:layout_constraintStart_toEndOf="@+id/rolled_value"
-        app:layout_constraintTop_toTopOf="@+id/rolled_value"
+        app:layout_constraintBottom_toBottomOf="@+id/dice_rolled"
+        app:layout_constraintStart_toEndOf="@+id/dice_rolled"
+        app:layout_constraintTop_toTopOf="@+id/dice_rolled"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 
     <TextView
-        android:id="@+id/rolled_value_with_mod"
+        android:id="@+id/roll_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -84,10 +84,10 @@
         android:layout_marginTop="20dp"
         android:text="testText"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/rolled_value"
+        app:layout_constraintEnd_toEndOf="@+id/dice_rolled"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/rolled_value"
-        app:layout_constraintTop_toBottomOf="@+id/rolled_value" />
+        app:layout_constraintStart_toStartOf="@+id/dice_rolled"
+        app:layout_constraintTop_toBottomOf="@+id/dice_rolled" />
 
     <Button
         android:id="@+id/re_roll"
@@ -99,7 +99,7 @@
         android:text="Roll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rolled_value_with_mod" />
+        app:layout_constraintTop_toBottomOf="@+id/roll_result" />
 
     <Button
         android:id="@+id/abilities_select"

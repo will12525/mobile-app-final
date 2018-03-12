@@ -15,7 +15,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:background="#FFF"
-
         app:menu="@menu/menu_main" />
 
     <android.support.design.widget.NavigationView

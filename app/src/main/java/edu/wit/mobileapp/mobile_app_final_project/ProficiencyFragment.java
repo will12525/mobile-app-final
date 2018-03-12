@@ -1,7 +1,5 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -39,75 +37,89 @@ public class ProficiencyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_proficiency, container, false);
-        final String pcClass = this.getArguments().getString("class");
+        final String pcClass = getArguments().getString("class");
 
         TextView proficiencyTextView = (TextView) rootView.findViewById(R.id.proficiency_text);
 
-        if (pcClass.equals("Barbarian")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass.equals("Bard")) {
-            numberProf = 3;
-            possibleSkills = new String[]{"Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass.equals("Cleric")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"History", "Insight", "Medicine", "Persuasion", "Religion"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass.equals("Druid")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"Arcana", "Animal Handling", "Insight", "Medicine", "Nature", "Perception", "Religion", "Survival"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Fighter")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Monk")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"Acrobatics", "Athletics", "History", "Insight", "Religion", "Stealth"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Paladin")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Ranger")) {
-            numberProf = 3;
-            possibleSkills = new String[]{"Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Rogue")) {
-            numberProf = 4;
-            possibleSkills = new String[]{"Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Sorcerer")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"Arcana", "Deception", "Insight", "Intimidation", "Persuasion", "Religion"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Warlock")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"Arcana", "Deception", "History", "Intimidation", "Investigation", "Nature", "Religion"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Wizard")) {
-            numberProf = 2;
-            possibleSkills = new String[]{"Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"};
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
-        } else if (pcClass .equals( "Blood Hunter")) {
-            possibleSkills = new String[]{"Athletics", "Acrobatics", "Arcana", "Insight", "Investigation", "Survival"};
-            numberProf = 2;
-            text = getString(R.string.prof_text, numberProf);
-            proficiencyTextView.setText(text);
+        switch (pcClass) {
+            case "Barbarian":
+                numberProf = 2;
+                possibleSkills = new String[]{"Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Bard":
+                numberProf = 3;
+                possibleSkills = new String[]{"Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Cleric":
+                numberProf = 2;
+                possibleSkills = new String[]{"History", "Insight", "Medicine", "Persuasion", "Religion"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Druid":
+                numberProf = 2;
+                possibleSkills = new String[]{"Arcana", "Animal Handling", "Insight", "Medicine", "Nature", "Perception", "Religion", "Survival"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Fighter":
+                numberProf = 2;
+                possibleSkills = new String[]{"Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Monk":
+                numberProf = 2;
+                possibleSkills = new String[]{"Acrobatics", "Athletics", "History", "Insight", "Religion", "Stealth"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Paladin":
+                numberProf = 2;
+                possibleSkills = new String[]{"Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Ranger":
+                numberProf = 3;
+                possibleSkills = new String[]{"Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Rogue":
+                numberProf = 4;
+                possibleSkills = new String[]{"Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Sorcerer":
+                numberProf = 2;
+                possibleSkills = new String[]{"Arcana", "Deception", "Insight", "Intimidation", "Persuasion", "Religion"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Warlock":
+                numberProf = 2;
+                possibleSkills = new String[]{"Arcana", "Deception", "History", "Intimidation", "Investigation", "Nature", "Religion"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Wizard":
+                numberProf = 2;
+                possibleSkills = new String[]{"Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"};
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
+            case "Blood Hunter":
+                possibleSkills = new String[]{"Athletics", "Acrobatics", "Arcana", "Insight", "Investigation", "Survival"};
+                numberProf = 2;
+                text = getString(R.string.prof_text, numberProf);
+                proficiencyTextView.setText(text);
+                break;
         }
 
         List<String> profList = new ArrayList<String>(Arrays.asList(possibleSkills));
@@ -140,7 +152,6 @@ public class ProficiencyFragment extends Fragment {
                     selectedItemCounter--;
                     Log.v("myApp", "selected items: " + selectedItemCounter);
                 }
-
 
             }
         });
