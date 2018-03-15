@@ -1,5 +1,6 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,10 +26,10 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
 
     private LayoutInflater mInflater;
     private List<CharacterItem> gridItems;
-    private Context mContext;
+    private Activity mContext;
 
 
-    CharacterDataAdapter(@NonNull Context context, int resource, List<CharacterItem> gridItems) {
+    CharacterDataAdapter(@NonNull Activity context, int resource, List<CharacterItem> gridItems) {
         super(context, resource);
         this.mContext = context;
         this.gridItems = gridItems;
@@ -51,14 +52,14 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
         return position;
     }
 
-    private void refresh(){
+    void refresh(){
         DatabaseHandler db = new DatabaseHandler(mContext);
         gridItems = db.getAllCharacters();
         notifyDataSetChanged();
     }
 
     @NonNull
-    public View getView(int position, View convertView, @NonNull ViewGroup parent){
+    public View getView(int position, View convertView, @NonNull final ViewGroup parent){
 
         final ViewHolder viewHolder;
         final CharacterItem item = gridItems.get(position);
@@ -83,7 +84,9 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
             @Override
             public void onClick(View v) {
                 DatabaseHandler db = new DatabaseHandler(mContext);
-                db.updateSelected(viewHolder.name.getText().toString());
+                String characterName = viewHolder.name.getText().toString();
+                db.updateSelected(characterName);
+                ((TextView)mContext.findViewById(R.id.txt_title)).setText(characterName);
                 //db.deleteChar(viewHolder.name.getText().toString());
                 refresh();
             }

@@ -259,20 +259,18 @@ public class ClassCreation extends AppCompatActivity {
                         return;
                     }
 
-                }
-
-                String strengthString = ((EditText) findViewById(R.id.str_edit)).getText().toString();
-                int strength;
-                String dexterityString = ((EditText) findViewById(R.id.dex_edit)).getText().toString();
-                int dexterity;
-                String constitutionString = ((EditText) findViewById(R.id.con_edit)).getText().toString();
-                int constitution;
-                String intelligenceString = ((EditText) findViewById(R.id.int_edit)).getText().toString();
-                int intelligence;
-                String wisdomString = ((EditText) findViewById(R.id.wis_edit)).getText().toString();
-                int wisdom;
-                String charismaString = ((EditText) findViewById(R.id.cha_edit)).getText().toString();
-                int charisma;
+                    String strengthString = ((EditText) findViewById(R.id.str_edit)).getText().toString();
+                    int strength;
+                    String dexterityString = ((EditText) findViewById(R.id.dex_edit)).getText().toString();
+                    int dexterity;
+                    String constitutionString = ((EditText) findViewById(R.id.con_edit)).getText().toString();
+                    int constitution;
+                    String intelligenceString = ((EditText) findViewById(R.id.int_edit)).getText().toString();
+                    int intelligence;
+                    String wisdomString = ((EditText) findViewById(R.id.wis_edit)).getText().toString();
+                    int wisdom;
+                    String charismaString = ((EditText) findViewById(R.id.cha_edit)).getText().toString();
+                    int charisma;
 
 
                     try {
@@ -288,27 +286,31 @@ public class ClassCreation extends AppCompatActivity {
                     }
 
 
-                bundle.putString("name", pcName);
-                bundle.putInt("level", pcLevel);
+                    bundle.putString("name", pcName);
+                    bundle.putInt("level", pcLevel);
 
-                bundle.putInt("str", strength);
-                bundle.putInt("dex", dexterity);
-                bundle.putInt("con", constitution);
-                bundle.putInt("int", intelligence);
-                bundle.putInt("wis", wisdom);
-                bundle.putInt("cha", charisma);
-
-
-                intent.putExtras(bundle);
+                    bundle.putInt("str", strength);
+                    bundle.putInt("dex", dexterity);
+                    bundle.putInt("con", constitution);
+                    bundle.putInt("int", intelligence);
+                    bundle.putInt("wis", wisdom);
+                    bundle.putInt("cha", charisma);
 
 
-                if(!db.createCharacter(pcName,classChosen, raceChosen, alignmentChosen, pcLevel,strength,dexterity,constitution,intelligence,wisdom,charisma)){
-                    Snackbar.make(v, "Character "+pcName+" already exists", Snackbar.LENGTH_LONG).show();
-                    Log.v("ClassCreation", "character "+pcName+" exists");
-                } else {
-                    finish();
-                    Log.v("ClassCreation", "character "+pcName+" added");
+                    intent.putExtras(bundle);
+
+
+                    if(!db.createCharacter(pcName,classChosen, raceChosen, alignmentChosen, pcLevel,strength,dexterity,constitution,intelligence,wisdom,charisma)){
+                        Snackbar.make(v, "Character "+pcName+" already exists", Snackbar.LENGTH_LONG).show();
+                        Log.v("ClassCreation", "character "+pcName+" exists");
+                    } else {
+                        finish();
+                        Log.v("ClassCreation", "character "+pcName+" added");
+                    }
+
                 }
+
+
 
             }
 
