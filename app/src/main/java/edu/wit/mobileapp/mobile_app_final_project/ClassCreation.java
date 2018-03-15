@@ -216,24 +216,12 @@ public class ClassCreation extends AppCompatActivity {
             }
         });
 
-
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         Fragment fragment = new ClassButton();
         fragment.setArguments(bundle);
         transaction.replace(R.id.container, fragment);
         transaction.commit();
-
-
-        /**
-         *
-         * Past here is testing passing information from this character creation thing
-         * to another activity (not sure if that's the endgame, but I wanted to make sure
-         * I could pass stuff through). I commented out the testactivity part but I can push that
-         * as well if y'all would like. Just lmk :)
-         *
-         */
-
 
         final Button confirm = findViewById(R.id.charConfirmButton);
 
@@ -250,14 +238,14 @@ public class ClassCreation extends AppCompatActivity {
                 String pcName = pcNameEdit.getText().toString();
                 EditText pcLevelEdit = findViewById(R.id.pcLevelEdit);
                 String pcLevelString = pcLevelEdit.getText().toString();
-                int pcLevel = 0;
+                int pcExperience = 0;
 
                 if (pcName.equals("") || pcLevelString.equals("") || classChosen.equals("Class") || alignmentChosen.equals("") || raceChosen.equals("")) {
                     Snackbar.make(v, "Please input/choose values for each field", Snackbar.LENGTH_SHORT).show();
                     return;
                 } else {
                     try {
-                        pcLevel = Integer.parseInt(pcLevelString);
+                        pcExperience = Integer.parseInt(pcLevelString);
                     } catch (NumberFormatException e) {
                         Snackbar.make(v, "Please input/choose values for each field", Snackbar.LENGTH_SHORT).show();
                         return;
@@ -424,7 +412,7 @@ public class ClassCreation extends AppCompatActivity {
                             break;
                     }
 
-                    if (!db.createCharacter(pcName, classChosen, raceChosen, alignmentChosen, pcLevel, strength, dexterity, constitution, intelligence, wisdom, charisma, speed)) {
+                    if (!db.createCharacter(pcName, classChosen, raceChosen, alignmentChosen, pcExperience, strength, dexterity, constitution, intelligence, wisdom, charisma, speed)) {
                         Snackbar.make(v, "Character " + pcName + " already exists", Snackbar.LENGTH_LONG).show();
                         Log.v("ClassCreation", "character " + pcName + " exists");
                     } else {

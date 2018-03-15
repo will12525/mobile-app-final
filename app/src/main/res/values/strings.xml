@@ -48,7 +48,7 @@
 
 
     <string name="pc_name">Name: </string>
-    <string name="pc_level">Level: </string>
+    <string name="pc_level">Exp: </string>
     <string name="pc_alignment">Alignment</string>
     <string name="cc_title">Character Creation</string>
     <string name="pc_scores">Ability Scores: </string>
