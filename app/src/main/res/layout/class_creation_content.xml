@@ -43,19 +43,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/pcLevelText"
+            android:id="@+id/pcExpText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
-            android:text="@string/pc_level"
+            android:text="@string/pc_exp"
             android:textColor="@color/black"
             android:textSize="17sp"
             app:layout_constraintStart_toEndOf="@+id/pcNameEdit"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/pcLevelEdit"
+            android:id="@+id/pcExpEdit"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginEnd="20dp"
@@ -63,13 +63,13 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/text_input_border"
             android:inputType="number|textNoSuggestions"
-            android:maxLength="2"
+            android:maxLength="6"
             android:minHeight="30dp"
             android:minWidth="30dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toEndOf="@+id/pcLevelText"
+            app:layout_constraintStart_toEndOf="@+id/pcExpText"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -92,7 +92,7 @@
             android:layout_marginTop="28dp"
             android:background="@android:drawable/btn_dropdown"
             app:layout_constraintStart_toEndOf="@+id/pcNameEdit"
-            app:layout_constraintTop_toBottomOf="@+id/pcLevelText" />
+            app:layout_constraintTop_toBottomOf="@+id/pcExpText" />
 
 
         <TextView

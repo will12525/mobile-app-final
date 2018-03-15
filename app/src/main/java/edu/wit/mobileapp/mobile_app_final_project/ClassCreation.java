@@ -236,7 +236,7 @@ public class ClassCreation extends AppCompatActivity {
 
                 EditText pcNameEdit = findViewById(R.id.pcNameEdit);
                 String pcName = pcNameEdit.getText().toString();
-                EditText pcLevelEdit = findViewById(R.id.pcLevelEdit);
+                EditText pcLevelEdit = findViewById(R.id.pcExpEdit);
                 String pcLevelString = pcLevelEdit.getText().toString();
                 int pcExperience = 0;
 
