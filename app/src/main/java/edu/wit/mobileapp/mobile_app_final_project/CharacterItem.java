@@ -22,6 +22,8 @@ public class CharacterItem {
     private int wisdom;
     private int charisma;
     private int speed;
+    private int armorClass;
+    private int initiative;
 
     private int health;
     private int proficiencyBonus;
@@ -56,6 +58,8 @@ public class CharacterItem {
         data = "Use the new character constructor";
         this.health = 0;
         this.proficiencyBonus = 0;
+        this.armorClass = 0;
+        this.initiative = 0;
         this.proficiencies = new String[] {"Setup", "new", "proficiencies"};
     }
 

@@ -26,6 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         String characterTable = "CREATE TABLE IF NOT EXISTS player_sheets (name TEXT PRIMARY KEY, selected INTEGER, class TEXT, race TEXT, alignment TEXT, exp INTEGER, inventory INTEGER, strength INTEGER, dexterity INTEGER, constitution INTEGER, intelligence INTEGER, wisdom INTEGER, charisma INTEGER, speed INTEGER)";
         db = getWritableDatabase();
         db.execSQL(characterTable);
+        //hp, initiative, ac,
     }
 
     @Override
