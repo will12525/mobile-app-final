@@ -27,6 +27,7 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
     private LayoutInflater mInflater;
     private List<CharacterItem> gridItems;
     private Activity mContext;
+    private DatabaseHandler db;
 
 
     CharacterDataAdapter(@NonNull Activity context, int resource, List<CharacterItem> gridItems) {
@@ -35,6 +36,7 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
         this.gridItems = gridItems;
 
         mInflater = LayoutInflater.from(context);
+        db = new DatabaseHandler(context);
     }
 
     @Override
@@ -53,9 +55,21 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
     }
 
     void refresh(){
-        DatabaseHandler db = new DatabaseHandler(mContext);
+
+        CharacterItem characterItem = db.getSelectedCharacter();
+
+        if(characterItem!=null){
+
+            ((TextView)mContext.findViewById(R.id.txt_title)).setText(characterItem.getName());
+            ((TextView)mContext.findViewById(R.id.main_ac_display)).setText(characterItem.getArmorClass()+"");
+            ((TextView)mContext.findViewById(R.id.health_display)).setText(characterItem.getHealth()+"");
+            ((TextView)mContext.findViewById(R.id.class_display)).setText(characterItem.getCharClass());
+            ((TextView)mContext.findViewById(R.id.race_display)).setText(characterItem.getRace());
+        }
         gridItems = db.getAllCharacters();
         notifyDataSetChanged();
+
+
     }
 
     @NonNull
@@ -83,10 +97,9 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseHandler db = new DatabaseHandler(mContext);
+
                 String characterName = viewHolder.name.getText().toString();
                 db.updateSelected(characterName);
-                ((TextView)mContext.findViewById(R.id.txt_title)).setText(characterName);
                 //db.deleteChar(viewHolder.name.getText().toString());
                 refresh();
             }

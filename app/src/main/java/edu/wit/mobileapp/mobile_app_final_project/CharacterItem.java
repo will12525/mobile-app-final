@@ -30,6 +30,8 @@ public class CharacterItem {
 
     private String[] proficiencies;
 
+    private boolean selected = false;
+
     CharacterItem(){
         name = "test name, do not upovote";
         data = "Use the new character constructor";
@@ -200,5 +202,27 @@ public class CharacterItem {
         this.proficiencies = proficiencies;
     }
 
+    public int getArmorClass() {
+        return armorClass;
+    }
 
+    public void setArmorClass(int armorClass) {
+        this.armorClass = armorClass;
+    }
+
+    public int getInitiative() {
+        return initiative;
+    }
+
+    public void setInitiative(int initiative) {
+        this.initiative = initiative;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 }

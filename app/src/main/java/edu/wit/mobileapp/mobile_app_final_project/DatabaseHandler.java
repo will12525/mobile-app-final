@@ -26,6 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         String characterTable = "CREATE TABLE IF NOT EXISTS player_sheets (name TEXT PRIMARY KEY, selected INTEGER, class TEXT, race TEXT, alignment TEXT, exp INTEGER, inventory INTEGER, strength INTEGER, dexterity INTEGER, constitution INTEGER, intelligence INTEGER, wisdom INTEGER, charisma INTEGER, speed INTEGER)";
         db = getWritableDatabase();
         db.execSQL(characterTable);
+        //clearDatabase();
         //hp, initiative, ac,
     }
 
@@ -45,10 +46,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     void clearDatabase(){
-        db.execSQL("DROP TABLE IF EXISTS player_sheets");
+        db.delete("player_sheets",null,null);
+        //db.execSQL("DROP TABLE IF EXISTS player_sheets");
     }
 
-    public void deleteChar(String name){
+    public void deleteCharacter(String name){
         db.delete("player_sheets", "name=?" , new String[]{name});
     }
 
@@ -89,9 +91,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             cursor.moveToFirst();
             do{
                 String name = cursor.getString(0);
-                String data = "";
-                for(int x = 1; x < cursor.getColumnCount();x++){
-                    data = data + cursor.getString(x) + ",";
+                int position = cursor.getInt(1);
+                String data = position+"";
+                for(int x = 2; x < cursor.getColumnCount();x++){
+                    data = data + ", "+cursor.getString(x);
                 }
                 list.add(new CharacterItem(name, data));
             }while(cursor.moveToNext());
@@ -108,21 +111,21 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.getCount()>0) {
             cursor.moveToFirst();
-  //, charisma INTEGER, speed INTEGER)";
 
             characterItem.setName(cursor.getString(0));
-            characterItem.setCharClass(cursor.getString(1));
-            characterItem.setRace(cursor.getString(2));
-            characterItem.setAlignment(cursor.getString(3));
-            characterItem.setExp(cursor.getInt(4));
-            characterItem.setInventorySlot(cursor.getInt(5));
-            characterItem.setStrength(cursor.getInt(6));
-            characterItem.setDexterity(cursor.getInt(7));
-            characterItem.setConstitution(cursor.getInt(8));
-            characterItem.setIntelligence(cursor.getInt(9));
-            characterItem.setWisdom(cursor.getInt(10));
-            characterItem.setCharisma(cursor.getInt(11));
-            characterItem.setSpeed(cursor.getInt(12));
+            characterItem.setSelected(true);
+            characterItem.setCharClass(cursor.getString(2));
+            characterItem.setRace(cursor.getString(3));
+            characterItem.setAlignment(cursor.getString(4));
+            characterItem.setExp(cursor.getInt(5));
+            characterItem.setInventorySlot(cursor.getInt(6));
+            characterItem.setStrength(cursor.getInt(7));
+            characterItem.setDexterity(cursor.getInt(8));
+            characterItem.setConstitution(cursor.getInt(9));
+            characterItem.setIntelligence(cursor.getInt(10));
+            characterItem.setWisdom(cursor.getInt(11));
+            characterItem.setCharisma(cursor.getInt(12));
+            characterItem.setSpeed(cursor.getInt(13));
 
 
 

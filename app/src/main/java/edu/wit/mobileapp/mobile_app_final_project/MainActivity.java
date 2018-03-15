@@ -1,14 +1,8 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,14 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,16 +35,32 @@ public class MainActivity extends AppCompatActivity {
         new DrawerFunctions(this,db);
 
 
+
+
         List<CharacterItem> list = db.getAllCharacters();
+        CharacterItem selectedCharacter = db.getSelectedCharacter();
+        if(selectedCharacter!=null){
+            TextView textView = findViewById(R.id.main_ac_display);
+            textView.setText(selectedCharacter.getArmorClass()+"");
+            textView = findViewById(R.id.health_display);
+            textView.setText(selectedCharacter.getHealth()+"");
+            textView = findViewById(R.id.class_display);
+            textView.setText(selectedCharacter.getCharClass());
+            textView = findViewById(R.id.race_display);
+            textView.setText(selectedCharacter.getRace());
+        }
 
 
-        ListView listView = findViewById(R.id.my_grid_view);
+
+
+        ListView listView = findViewById(R.id.my_list_view);
         mCharacterDataAdapter = new CharacterDataAdapter(this,0, list);
         listView.setAdapter(mCharacterDataAdapter);
 
        // combatSetup();
 
     }
+
 
     public DatabaseHandler getDB(){
         return db;

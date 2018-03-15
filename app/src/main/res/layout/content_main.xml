@@ -11,7 +11,7 @@
     >
 
     <ListView
-        android:id="@+id/my_grid_view"
+        android:id="@+id/my_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
