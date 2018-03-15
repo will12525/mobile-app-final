@@ -44,6 +44,11 @@ public class CombatActivity extends AppCompatActivity {
         BattleItemAdapter adapter = new BattleItemAdapter(battleItemListing);
         rv.setAdapter(adapter);
 
+        if(battleItemListing.size() == 0)
+        {
+            // Do a thing
+        }
+
         final EditText hpNumber = (EditText) findViewById(R.id.hpNumber);
         final ProgressBar hpBar = (ProgressBar) findViewById(R.id.hpBar);
         hpBar.setMax(100);
