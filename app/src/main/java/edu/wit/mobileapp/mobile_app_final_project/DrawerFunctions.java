@@ -34,7 +34,10 @@ public class DrawerFunctions {
         this.db = db;
 
         TextView titleStr = context.findViewById(R.id.txt_title);
-        titleStr.setText(db.getSelectedCharacter().name);
+        CharacterItem characterItem = db.getSelectedCharacter();
+        if(characterItem != null) {
+            titleStr.setText(characterItem.name);
+        }
 
         final CoordinatorLayout drawerContainer = context.findViewById(R.id.drawer_stuff);
 
