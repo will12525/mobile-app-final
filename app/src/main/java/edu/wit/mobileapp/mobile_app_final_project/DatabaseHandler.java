@@ -102,18 +102,34 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     public CharacterItem getSelectedCharacter(){
-        CharacterItem characterItem = null;
+        CharacterItem characterItem = new CharacterItem();
         String query = "SELECT * FROM player_sheets WHERE selected=1";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.getCount()>0) {
             cursor.moveToFirst();
-            String name = cursor.getString(0);
-            String data = "";
-            for (int x = 1; x < cursor.getColumnCount(); x++) {
-                data = data + cursor.getString(x) + ",";
-            }
+  //, charisma INTEGER, speed INTEGER)";
 
-            characterItem = new CharacterItem(name, data);
+            characterItem.setName(cursor.getString(0));
+            characterItem.setCharClass(cursor.getString(1));
+            characterItem.setRace(cursor.getString(2));
+            characterItem.setAlignment(cursor.getString(3));
+            characterItem.setExp(cursor.getInt(4));
+            characterItem.setInventorySlot(cursor.getInt(5));
+            characterItem.setStrength(cursor.getInt(6));
+            characterItem.setDexterity(cursor.getInt(7));
+            characterItem.setConstitution(cursor.getInt(8));
+            characterItem.setIntelligence(cursor.getInt(9));
+            characterItem.setWisdom(cursor.getInt(10));
+            characterItem.setCharisma(cursor.getInt(11));
+            characterItem.setSpeed(cursor.getInt(12));
+
+
+
+           /* for (int x = 1; x < cursor.getColumnCount(); x++) {
+                data = data + cursor.getString(x) + ",";
+            }*/
+
+           // characterItem = new CharacterItem(name, data);
 
 
         }
