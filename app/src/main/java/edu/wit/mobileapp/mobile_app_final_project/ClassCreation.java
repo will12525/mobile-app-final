@@ -23,6 +23,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+    Created by usingerr on 02/28/2018
+ */
+
 public class ClassCreation extends AppCompatActivity {
 
     String TAG = "myApp";
@@ -39,7 +43,7 @@ public class ClassCreation extends AppCompatActivity {
 
         db = new DatabaseHandler(getApplicationContext());
 
-        new DrawerFunctions(this,db);
+        new DrawerFunctions(this, db);
 
         Resources res = getResources();
 
@@ -202,7 +206,7 @@ public class ClassCreation extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 classChosen = ((Spinner) findViewById(R.id.class_spinner)).getItemAtPosition(position).toString();
-               // Log.v(TAG, "" + classChosen);
+                // Log.v(TAG, "" + classChosen);
                 bundle.putString("class", classChosen);
             }
 
@@ -272,7 +276,6 @@ public class ClassCreation extends AppCompatActivity {
                     String charismaString = ((EditText) findViewById(R.id.cha_edit)).getText().toString();
                     int charisma;
 
-
                     try {
                         strength = Integer.parseInt(strengthString);
                         dexterity = Integer.parseInt(dexterityString);
@@ -285,40 +288,154 @@ public class ClassCreation extends AppCompatActivity {
                         return;
                     }
 
-
-                    bundle.putString("name", pcName);
-                    bundle.putInt("level", pcLevel);
-
-                    bundle.putInt("str", strength);
-                    bundle.putInt("dex", dexterity);
-                    bundle.putInt("con", constitution);
-                    bundle.putInt("int", intelligence);
-                    bundle.putInt("wis", wisdom);
-                    bundle.putInt("cha", charisma);
-
-
-                    intent.putExtras(bundle);
-
-
-                    if(!db.createCharacter(pcName,classChosen, raceChosen, alignmentChosen, pcLevel,strength,dexterity,constitution,intelligence,wisdom,charisma)){
-                        Snackbar.make(v, "Character "+pcName+" already exists", Snackbar.LENGTH_LONG).show();
-                        Log.v("ClassCreation", "character "+pcName+" exists");
-                    } else {
-                        finish();
-                        Log.v("ClassCreation", "character "+pcName+" added");
+                    int speed = 0;
+                    //race ability score mods
+                    switch (raceChosen) {
+                        case ("Aarakocra"):
+                            speed = 25;
+                            dexterity = dexterity + 2;
+                            wisdom++;
+                            break;
+                        case ("Aasimar"):
+                            speed = 30;
+                            charisma = charisma + 2;
+                            break;
+                        case ("Bugbear"):
+                            speed = 30;
+                            strength = strength + 2;
+                            dexterity++;
+                            break;
+                        case ("Dragonborn"):
+                            speed = 30;
+                            strength = strength + 2;
+                            charisma++;
+                            break;
+                        case ("Dwarf"):
+                            speed = 25;
+                            constitution = constitution + 2;
+                            break;
+                        case ("Elf"):
+                            speed = 30;
+                            dexterity = dexterity + 2;
+                            break;
+                        case ("Feral Tiefling"):
+                            speed = 30;
+                            dexterity = dexterity + 2;
+                            intelligence++;
+                            break;
+                        case ("Firbolg"):
+                            speed = 30;
+                            wisdom = wisdom + 2;
+                            strength++;
+                            break;
+                        case ("Genasi"):
+                            speed = 30;
+                            constitution = constitution + 2;
+                            break;
+                        case ("Gnome"):
+                            speed = 25;
+                            intelligence = intelligence + 2;
+                            break;
+                        case ("Goblin"):
+                            speed = 30;
+                            dexterity = dexterity + 2;
+                            constitution++;
+                            break;
+                        case ("Goliath"):
+                            speed = 30;
+                            strength = strength + 2;
+                            constitution++;
+                            break;
+                        case ("Half-Elf"):
+                            speed = 30;
+                            charisma = charisma + 2;
+                            intelligence++;
+                            wisdom++;
+                            break;
+                        case ("Halfling"):
+                            speed = 25;
+                            dexterity = dexterity + 2;
+                            break;
+                        case ("Half-Orc"):
+                            speed = 30;
+                            strength = strength + 2;
+                            constitution++;
+                            break;
+                        case ("Hobgoblin"):
+                            speed = 30;
+                            constitution = constitution + 2;
+                            intelligence++;
+                            break;
+                        case ("Human"):
+                            speed = 30;
+                            strength++;
+                            dexterity++;
+                            constitution++;
+                            intelligence++;
+                            wisdom++;
+                            charisma++;
+                            break;
+                        case ("Kenku"):
+                            speed = 30;
+                            dexterity = dexterity + 2;
+                            wisdom++;
+                            break;
+                        case ("Kobold"):
+                            speed = 30;
+                            dexterity = dexterity + 2;
+                            strength = strength - 2;
+                            break;
+                        case ("Lizardfolk"):
+                            speed = 30;
+                            constitution = constitution + 2;
+                            wisdom++;
+                            break;
+                        case ("Orc"):
+                            speed = 30;
+                            strength = strength + 2;
+                            constitution++;
+                            intelligence = intelligence - 2;
+                            break;
+                        case ("Tabaxi"):
+                            speed = 30;
+                            dexterity = dexterity + 2;
+                            charisma++;
+                            break;
+                        case ("Tiefling"):
+                            speed = 30;
+                            intelligence++;
+                            charisma = charisma + 2;
+                            break;
+                        case ("Tortle"):
+                            speed = 30;
+                            strength = strength + 2;
+                            wisdom++;
+                            break;
+                        case ("Triton"):
+                            speed = 30;
+                            strength++;
+                            constitution++;
+                            charisma++;
+                            break;
+                        case ("Yuan-ti"):
+                            speed = 30;
+                            charisma = charisma + 2;
+                            intelligence++;
+                            break;
                     }
 
+                    if (!db.createCharacter(pcName, classChosen, raceChosen, alignmentChosen, pcLevel, strength, dexterity, constitution, intelligence, wisdom, charisma, speed)) {
+                        Snackbar.make(v, "Character " + pcName + " already exists", Snackbar.LENGTH_LONG).show();
+                        Log.v("ClassCreation", "character " + pcName + " exists");
+                    } else {
+                        finish();
+                        Log.v("ClassCreation", "character " + pcName + " added");
+                    }
                 }
-
-
-
             }
 
         });
-
-
     }
-
 
     private int rollThreeDSix() {
         return ((int) Math.ceil(Math.random() * 6)) + ((int) Math.ceil(Math.random() * 6)) + ((int) Math.ceil(Math.random() * 6));

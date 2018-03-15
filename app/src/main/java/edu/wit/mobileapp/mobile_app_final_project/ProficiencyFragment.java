@@ -25,6 +25,8 @@ import java.util.List;
  * to handle interaction events.
  * Use the {@link ProficiencyFragment #newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * created by usingerr on 02/28/2018
  */
 public class ProficiencyFragment extends Fragment {
     private Bundle bundle = new Bundle();

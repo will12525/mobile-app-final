@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        String characterTable = "CREATE TABLE IF NOT EXISTS player_sheets (name TEXT PRIMARY KEY, selected INTEGER, class TEXT, race TEXT, alignment TEXT, exp INTEGER, inventory INTEGER, strength INTEGER, dexterity INTEGER, constitution INTEGER, intelligence INTEGER, wisdom INTEGER, charisma INTEGER)";
+        String characterTable = "CREATE TABLE IF NOT EXISTS player_sheets (name TEXT PRIMARY KEY, selected INTEGER, class TEXT, race TEXT, alignment TEXT, exp INTEGER, inventory INTEGER, strength INTEGER, dexterity INTEGER, constitution INTEGER, intelligence INTEGER, wisdom INTEGER, charisma INTEGER, speed INTEGER)";
         db = getWritableDatabase();
         db.execSQL(characterTable);
     }
@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         //Add "selected" value, inventory table id
         //create table of characters inventory
             // name, type, damage, notes
-      //  String characterTable = "CREATE TABLE IF NOT EXISTS player_sheets (name TEXT PRIMARY KEY, selected INTEGER, class TEXT, race TEXT, alignment TEXT, exp INTEGER, inventory INTEGER, strength INTEGER, dexterity INTEGER, constitution INTEGER, intelligence INTEGER, wisdom INTEGER, charisma INTEGER)";
+      //  String characterTable = "CREATE TABLE IF NOT EXISTS player_sheets (name TEXT PRIMARY KEY, selected INTEGER, class TEXT, race TEXT, alignment TEXT, exp INTEGER, inventory INTEGER, strength INTEGER, dexterity INTEGER, constitution INTEGER, intelligence INTEGER, wisdom INTEGER, charisma INTEGER, speed INTEGER)";
       //  db.execSQL(characterTable);
 
     }
@@ -51,7 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.delete("player_sheets", "name=?" , new String[]{name});
     }
 
-    boolean createCharacter(String characterName, String chosenClass, String race, String alignment, int pcLevel, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma){
+    boolean createCharacter(String characterName, String chosenClass, String race, String alignment, int pcLevel, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int speed){
 
         boolean characterExists = updateSelected(characterName);
         if(characterExists){
@@ -72,6 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put("intelligence", intelligence);
         values.put("wisdom", wisdom);
         values.put("charisma", charisma);
+        values.put("speed", speed);
 
         long rowId = db.insert("player_sheets", null, values);
         Log.v("New Character added", characterName+", "+rowId);

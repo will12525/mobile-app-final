@@ -20,6 +20,8 @@ import android.widget.TextView;
  * to handle interaction events.
  * Use the {@link ClassButton #newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * created by usingerr on 02/28/2018
  */
 public class ClassButton extends Fragment {
     static String TAG = "myApp";
