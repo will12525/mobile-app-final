@@ -24,12 +24,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
-    Created by usingerr on 02/28/2018
+ * Created by usingerr on 02/28/2018
  */
 
 public class ClassCreation extends AppCompatActivity {
 
-    String TAG = "myApp";
     String classChosen = "Class";
     String raceChosen = "Race";
     String alignmentChosen = "Alignment";
@@ -411,13 +410,23 @@ public class ClassCreation extends AppCompatActivity {
                             intelligence++;
                             break;
                     }
+                    int numberProf = bundle.getInt("numberProf");
+                    String proficiencies = null;
+                    for (int i = 1; i <= 4; i++) {
+                        if (bundle.containsKey("prof1") && i == 1) {
+                            proficiencies = bundle.getString("prof1") + ",";
+                        } else if (bundle.containsKey("prof" + i)) {
+                            proficiencies += (i < numberProf) ? bundle.getString("prof" + i) + ",": bundle.getString("prof" + i);
+                        }
+                    }
 
-                    if (!db.createCharacter(pcName, classChosen, raceChosen, alignmentChosen, pcExperience, strength, dexterity, constitution, intelligence, wisdom, charisma, speed)) {
+                    if (!db.createCharacter(pcName, classChosen, raceChosen, alignmentChosen, proficiencies, pcExperience, strength, dexterity, constitution, intelligence, wisdom, charisma, speed)) {
                         Snackbar.make(v, "Character " + pcName + " already exists", Snackbar.LENGTH_LONG).show();
                         Log.v("ClassCreation", "character " + pcName + " exists");
                     } else {
                         finish();
                         Log.v("ClassCreation", "character " + pcName + " added");
+                        Log.v("ClassCreation", "proficiencies chosen: " + proficiencies);
                     }
                 }
             }
@@ -427,5 +436,9 @@ public class ClassCreation extends AppCompatActivity {
 
     private int rollThreeDSix() {
         return ((int) Math.ceil(Math.random() * 6)) + ((int) Math.ceil(Math.random() * 6)) + ((int) Math.ceil(Math.random() * 6));
+    }
+
+    public Bundle getBundle() {
+        return bundle;
     }
 }

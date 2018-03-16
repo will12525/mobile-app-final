@@ -29,7 +29,7 @@ import java.util.List;
  * created by usingerr on 02/28/2018
  */
 public class ProficiencyFragment extends Fragment {
-    private Bundle bundle = new Bundle();
+    private Bundle bundle;
     private int numberProf;
     private String text;
     private String[] possibleSkills;
@@ -40,6 +40,8 @@ public class ProficiencyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_proficiency, container, false);
         final String pcClass = getArguments().getString("class");
+
+        bundle = ((ClassCreation)getActivity()).getBundle();
 
         TextView proficiencyTextView = (TextView) rootView.findViewById(R.id.proficiency_text);
 
@@ -124,7 +126,7 @@ public class ProficiencyFragment extends Fragment {
                 break;
         }
 
-        List<String> profList = new ArrayList<String>(Arrays.asList(possibleSkills));
+        final List<String> profList = new ArrayList<String>(Arrays.asList(possibleSkills));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, profList);
         final ListView listView = (ListView) rootView.findViewById(R.id.profView);
         listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
@@ -132,6 +134,7 @@ public class ProficiencyFragment extends Fragment {
         listView.setAdapter(arrayAdapter);
 
         listView.getLayoutParams().height = (125 * possibleSkills.length + 40);
+        bundle.putInt("numberProf", numberProf);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -140,7 +143,6 @@ public class ProficiencyFragment extends Fragment {
                     selectedItemCounter++;
                     Log.v("myApp", selectedItemCounter + "");
                     Log.v("myApp", listView.getItemAtPosition(position).toString());
-                    bundle.putString("prof1", listView.getItemAtPosition(position).toString());
 
                     if (selectedItemCounter > numberProf) { // if the user attempts to select too many profs, don't let them
                         selectedItemCounter--;
@@ -149,8 +151,10 @@ public class ProficiencyFragment extends Fragment {
                                 .setAction("Action", null).show();
 
                     }
-                } else if (!listView.isItemChecked(position)) { // decrement selectedItemCounter on deselection of an item
 
+                    bundle.putString("prof" + selectedItemCounter, listView.getItemAtPosition(position).toString());
+                } else if (!listView.isItemChecked(position)) { // decrement selectedItemCounter on deselection of an item
+                    bundle.remove("prof" + selectedItemCounter);
                     selectedItemCounter--;
                     Log.v("myApp", "selected items: " + selectedItemCounter);
                 }
