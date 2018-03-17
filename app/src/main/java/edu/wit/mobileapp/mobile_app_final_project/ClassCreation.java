@@ -46,12 +46,12 @@ public class ClassCreation extends AppCompatActivity {
 
         Resources res = getResources();
 
-        int randomInt1 = rollThreeDSix();
-        int randomInt2 = rollThreeDSix();
-        int randomInt3 = rollThreeDSix();
-        int randomInt4 = rollThreeDSix();
-        int randomInt5 = rollThreeDSix();
-        int randomInt6 = rollThreeDSix();
+        int randomInt1 = xrollXDXx(3, 6);
+        int randomInt2 = xrollXDXx(3, 6);
+        int randomInt3 = xrollXDXx(3, 6);
+        int randomInt4 = xrollXDXx(3, 6);
+        int randomInt5 = xrollXDXx(3, 6);
+        int randomInt6 = xrollXDXx(3, 6);
 
         TextView rollOne = findViewById(R.id.rollOneText);
         rollOne.setText("" + randomInt1);
@@ -239,7 +239,7 @@ public class ClassCreation extends AppCompatActivity {
                 String pcLevelString = pcLevelEdit.getText().toString();
                 int pcExperience = 0;
 
-                if (pcName.equals("") || pcLevelString.equals("") || classChosen.equals("Class") || alignmentChosen.equals("") || raceChosen.equals("")) {
+                if (pcName.equals("") || pcLevelString.equals("") || classChosen.equals("Class") || alignmentChosen.equals("Alignment") || raceChosen.equals("Race")) {
                     Snackbar.make(v, "Please input/choose values for each field", Snackbar.LENGTH_SHORT).show();
                     return;
                 } else {
@@ -416,11 +416,15 @@ public class ClassCreation extends AppCompatActivity {
                         if (bundle.containsKey("prof1") && i == 1) {
                             proficiencies = bundle.getString("prof1") + ",";
                         } else if (bundle.containsKey("prof" + i)) {
-                            proficiencies += (i < numberProf) ? bundle.getString("prof" + i) + ",": bundle.getString("prof" + i);
+                            proficiencies += (i < numberProf) ? bundle.getString("prof" + i) + "," : bundle.getString("prof" + i);
                         }
                     }
+                    int initiative = getMod(dexterity) + 10;
+                    int hitPoints = getHitPoints(classChosen, pcExperience, getMod(constitution));
+                    Log.v("ClassCreation", "initiative: " + initiative + " hit points: " + hitPoints);
 
-                    if (!db.createCharacter(pcName, classChosen, raceChosen, alignmentChosen, proficiencies, pcExperience, strength, dexterity, constitution, intelligence, wisdom, charisma, speed)) {
+
+                    if (!db.createCharacter(pcName, classChosen, raceChosen, alignmentChosen, proficiencies, pcExperience, strength, dexterity, constitution, intelligence, wisdom, charisma, speed, initiative, hitPoints)) {
                         Snackbar.make(v, "Character " + pcName + " already exists", Snackbar.LENGTH_LONG).show();
                         Log.v("ClassCreation", "character " + pcName + " exists");
                     } else {
@@ -434,11 +438,102 @@ public class ClassCreation extends AppCompatActivity {
         });
     }
 
-    private int rollThreeDSix() {
-        return ((int) Math.ceil(Math.random() * 6)) + ((int) Math.ceil(Math.random() * 6)) + ((int) Math.ceil(Math.random() * 6));
+    public int xrollXDXx(int numberOfDice, int dieNumber) {
+        int result = 0;
+        for (int i = 1; i <= numberOfDice; i++) {
+            result += ((int) Math.ceil(Math.random() * dieNumber));
+        }
+
+        return result;
     }
 
     public Bundle getBundle() {
         return bundle;
+    }
+
+    public int getMod(int score) {
+        int mod = (int) Math.floor((score/2)) - 5;
+        return mod;
+    }
+
+    public int getHitDie(String pcClass) {
+        int hitDie = 0;
+        switch (pcClass) {
+            case ("Barbarian"):
+                hitDie = 12;
+                break;
+            case ("Bard"):
+                hitDie = 8;
+                break;
+            case ("Cleric"):
+                hitDie = 8;
+                break;
+            case ("Druid"):
+                hitDie = 8;
+                break;
+            case ("Fighter"):
+                hitDie = 10;
+                break;
+            case ("Monk"):
+                hitDie = 8;
+                break;
+            case ("Paladin"):
+                hitDie = 10;
+                break;
+            case ("Ranger"):
+                hitDie = 10;
+                break;
+            case ("Rogue"):
+                hitDie = 8;
+                break;
+            case ("Sorcerer"):
+                hitDie = 6;
+                break;
+            case ("Warlock"):
+                hitDie = 8;
+                break;
+            case ("Wizard"):
+                hitDie = 6;
+                break;
+            case ("Blood Hunter"):
+                hitDie = 10;
+                break;
+        }
+        return hitDie;
+    }
+
+    public static int getLevel (int exp) {
+        int level = 1;
+        if (exp >= 300 && exp < 900) level = 2;
+        if (exp >= 900 && exp < 2700) level = 3;
+        if (exp >= 2700 && exp < 6500) level = 4;
+        if (exp >= 6500 && exp < 14000) level = 5;
+        if (exp >= 14000 && exp < 23000) level = 6;
+        if (exp >= 23000 && exp < 34000) level = 7;
+        if (exp >= 34000 && exp < 48000) level = 8;
+        if (exp >= 48000 && exp < 64000) level = 9;
+        if (exp >= 64000 && exp < 85000) level = 10;
+        if (exp >= 85000 && exp < 100000) level = 11;
+        if (exp >= 100000 && exp < 120000) level = 12;
+        if (exp >= 120000 && exp < 140000) level = 13;
+        if (exp >= 140000 && exp < 165000) level = 14;
+        if (exp >= 165000 && exp < 195000) level = 15;
+        if (exp >= 195000 && exp < 225000) level = 16;
+        if (exp >= 225000 && exp < 265000) level = 17;
+        if (exp >= 265000 && exp < 305000) level = 18;
+        if (exp >= 305000 && exp < 355000) level = 19;
+        if (exp >= 355000) level = 20; //congrats
+        return level;
+    }
+
+    public int getHitPoints(String classChosen, int experience, int conMod) {
+        int hitPoints = getHitDie(classChosen) + conMod;
+
+        for (int i = 2; i <= getLevel(experience); i++) {
+            hitPoints += ((xrollXDXx(1, getHitDie(classChosen))) + conMod);
+        }
+
+
+        return hitPoints;
     }
 }
