@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.wit.mobileapp.mobile_app_final_project.DiceControl">
+
+    <include layout="@layout/to_include"
+        android:id="@+id/drawer_stuff"/>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="?actionBarSize"
     android:layout_marginLeft="10dp"
-    tools:context="edu.wit.mobileapp.mobile_app_final_project.inv">
+    tools:context="edu.wit.mobileapp.mobile_app_final_project.inv"
+    android:id="@+id/content_main">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -79,3 +92,4 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toStartOf="@+id/btnItem" />
 </android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -5,6 +5,10 @@
 
     <item android:title="@string/character_creation"
         android:id="@+id/character_creation"/>
+    <item android:title="Inventory"
+        android:id="@+id/invMenu"/>
+    <item android:title="Spells"
+        android:id="@+id/spellsMenu"/>
 
 
 </menu>

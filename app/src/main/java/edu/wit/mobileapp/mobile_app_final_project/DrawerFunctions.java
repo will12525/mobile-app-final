@@ -124,7 +124,25 @@ public class DrawerFunctions {
                 Toast.makeText(context.getApplicationContext(), "Already on character creation", Toast.LENGTH_SHORT).show();
                 return;
             }
-        } else {
+        }
+        else if(id == R.id.invMenu){
+            drawer.closeDrawer(GravityCompat.START);
+            if(!context.getClass().equals(inv.class)){
+                context.startActivity(new Intent(context, inv.class));
+            } else{
+                Toast.makeText(context.getApplicationContext(), "Already on Inventory", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        else if(id == R.id.spellsMenu){
+            drawer.closeDrawer(GravityCompat.START);
+            if(!context.getClass().equals(spells.class)){
+                context.startActivity(new Intent(context, spells.class));
+            } else{
+                Toast.makeText(context.getApplicationContext(), "Already on Spells page", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
             Intent diceIntent = new Intent(context, DiceControl.class);
             diceIntent.putExtra("statID",id);
             diceIntent.putExtra("statName", item.getTitle().toString());

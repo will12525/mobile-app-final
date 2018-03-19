@@ -25,15 +25,20 @@ public class inv extends AppCompatActivity {
     //textview gold/silver/copper
     TextView tvg, tvs, tvc;
     final Context mContext = this;
+    private DatabaseHandler db;
 
     int gold,silver,copper;
 
-
+//TODO Edit itemAddDialog for description, damage, damage type, item type(?), return to database somehow
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inv);
         setTitle("Inventory");
+
+        //create db for hamburgers
+        db = new DatabaseHandler(this);
+        new DrawerFunctions(this, db);
         //Money Setup
         moneyBtn=findViewById(R.id.btnMoney);
         tvg = findViewById(R.id.goldView);

@@ -17,7 +17,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+//TODO On touch display spell description
 public class spells extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -25,6 +25,7 @@ public class spells extends AppCompatActivity {
     HashMap<String, List<spellItem>> listDataChild;
     List<spellItem> lv0, lv1, lv2, lv3, lv4, lv5, lv6, lv7, lv8, lv9;
     Context mContext = this;
+    private DatabaseHandler db;
 
     Button btn;
 
@@ -32,6 +33,9 @@ public class spells extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spells);
+        //create db
+        db = new DatabaseHandler(this);
+        new DrawerFunctions(this, db);
 
         expListView=(ExpandableListView)findViewById(R.id.lvExp);
         prepareHeaders();
