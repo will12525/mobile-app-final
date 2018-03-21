@@ -49,10 +49,22 @@ public class CombatActivity extends AppCompatActivity {
             // Do a thing
         }
 
+        DatabaseHandler db = new DatabaseHandler(this);
+        final CharacterItem character = db.getSelectedCharacter();
+
+
         final EditText hpNumber = (EditText) findViewById(R.id.hpNumber);
         final ProgressBar hpBar = (ProgressBar) findViewById(R.id.hpBar);
-        hpBar.setMax(100);
-        hpBar.setProgress(50,true);
+        hpBar.setMax( character.getHealth() );
+        hpBar.setProgress(character.getHealth(),true);
+
+        final EditText initiative = (EditText) findViewById(R.id.initiativeEdit);
+        final EditText speed = (EditText) findViewById(R.id.speedEdit);
+        final EditText armorClass = (EditText) findViewById(R.id.armorEdit);
+
+        initiative.setText( character.getInitiative());
+        speed.setText(character.getSpeed());
+        armorClass.setText(character.getArmorClass());
 
         hpNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -72,23 +84,23 @@ public class CombatActivity extends AppCompatActivity {
 
                     hpBar.setProgress(Integer.parseInt(s.toString()),true);
 
-                    int hp = Integer.parseInt(s.toString());
+                    double hp = ((Integer.parseInt(s.toString())) / character.getHealth()) * 100;
 
 
 
-                    if(hp >= 100)
+                    if(hp >= 100.0)
                     {
                         hpBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
                     }
-                    if( hp <= 99 && hp > 50)
+                    if( hp <= 99.0 && hp > 50.0)
                     {
                         hpBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
                     }
-                    if( hp < 50 && hp >= 26)
+                    if( hp < 50.0 && hp >= 26.0)
                     {
                         hpBar.setProgressTintList(ColorStateList.valueOf(Color.argb(255,255,140,0))); // Orange
                     }
-                    if(( hp <= 25))
+                    if(( hp <= 25.0))
                     {
                         hpBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
                     }
