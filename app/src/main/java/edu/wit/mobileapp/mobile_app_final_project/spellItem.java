@@ -8,4 +8,9 @@ public class spellItem {
     String spellName;
     int spellLevel;
     String spellDescription;
+
+    public String getSpellDescription()
+    {
+        return spellDescription;
+    }
 }

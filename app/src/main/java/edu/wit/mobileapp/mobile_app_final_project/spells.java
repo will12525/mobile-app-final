@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,6 +97,34 @@ public class spells extends AppCompatActivity {
                 AD.show();
             }
 
+        });
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener(){
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPos, int childPos, long Id) {
+                final AlertDialog.Builder AlertDB = new AlertDialog.Builder(spells.this);
+                LayoutInflater inflater = LayoutInflater.from(mContext);
+                final View descView = inflater.inflate(R.layout.spell_display_dialog, null);
+                final TextView displayDesc = (TextView)descView.findViewById(R.id.spDescDisplay);
+                final List<spellItem> spellToDisp = listDataChild.get(listDataHeader.get(groupPos));
+
+
+                AlertDB.setTitle("Spell Description");
+                AlertDB.setView(descView);
+                displayDesc.setText(spellToDisp.get(childPos).getSpellDescription());
+
+                AlertDB
+                        .setCancelable(true)
+                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog descDialog = AlertDB.create();
+                descDialog.show();
+                return false;
+
+            }
         });
     }
 

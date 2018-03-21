@@ -24,7 +24,8 @@
         android:background="@android:color/holo_red_light"
         android:text="-"
         android:textSize="35dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:focusable="false"/>
 
 
 </LinearLayout>
