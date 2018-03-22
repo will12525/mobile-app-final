@@ -59,6 +59,7 @@
     <string name="success_question">Success?</string>
     <string name="success">Success</string>
     <string name="failure">Failure</string>
+    <string name="home">Home</string>
 
     <string-array name="alignments">
         <item>Alignment</item>

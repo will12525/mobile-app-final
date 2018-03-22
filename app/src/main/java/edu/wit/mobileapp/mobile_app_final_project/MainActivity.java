@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
             TextView textView = findViewById(R.id.main_ac_display);
             textView.setText(selectedCharacter.getArmorClass()+"");
             textView = findViewById(R.id.health_display);
-            textView.setText(selectedCharacter.getHealth()+"");
+            textView.setText(selectedCharacter.getCurrentHealth()+"");
             textView = findViewById(R.id.class_display);
-            textView.setText(selectedCharacter.getCharClass());
+            textView.setText(selectedCharacter.charClass);
             textView = findViewById(R.id.race_display);
-            textView.setText(selectedCharacter.getRace());
+            textView.setText(selectedCharacter.race);
         }
 
 

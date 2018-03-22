@@ -1,53 +1,59 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
+import android.util.Log;
+
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by lawrencew on 3/9/2018.
  */
 
 public class CharacterItem {
-    public String name;
+    String name;
 
-    public String data;
+    boolean selected = false;
 
-    private String charClass;
-    private String race;
-    private String alignment;
+    String charClass;
+     String race;
+     String alignment;
 
-    private int exp;
-    private int inventorySlot;
-    private int strength;
-    private int dexterity;
-    private int constitution;
-    private int intelligence;
-    private int wisdom;
-    private int charisma;
-    private int speed;
-    private int armorClass;
-    private int initiative;
+     //String[] proficiencies;
+     List<String> proficiencies;
 
-    private int health;
-    private int proficiencyBonus;
+     int exp;
+     int inventorySlot;
+     int strength;
+     int dexterity;
+     int constitution;
+     int intelligence;
+     int wisdom;
+     int charisma;
+     int speed;
+     int initiative;
+     int maxHealth;
+     int currentHealth;
 
-    private String[] proficiencies;
+     int proficiencyBonus;
 
-    private boolean selected = false;
 
-    CharacterItem(){
-        name = "test name, do not upovote";
-        data = "Use the new character constructor";
-    }
 
-    CharacterItem(String name, String data){
-        this.name = name;
-        this.data = data;
-    }
+  //  public String data;
 
-    public CharacterItem(String name, String charClass, String race, String alignment, int exp, int inventorySlot,
-                         int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int speed){
+
+    public CharacterItem(boolean selected, String name, String charClass, String race, String alignment, String proficiencies,
+                         int exp, int inventorySlot, int strength, int dexterity, int constitution, int intelligence,
+                         int wisdom, int charisma, int speed, int initiative, int health, int currentHealth){
+
+        this.selected = selected;
         this.name = name;
         this.charClass = charClass;
         this.race=race;
         this.alignment = alignment;
+        if(proficiencies!=null) {
+           // String[] tempProficiencies = proficiencies.split(",");
+            this.proficiencies.addAll(Arrays.asList(proficiencies.split(",")));
+        }
         this.exp = exp;
         this.inventorySlot = inventorySlot;
         this.strength = strength;
@@ -57,172 +63,70 @@ public class CharacterItem {
         this.wisdom=wisdom;
         this.charisma = charisma;
         this.speed = speed;
-        data = "Use the new character constructor";
-        this.health = 0;
-        this.proficiencyBonus = 0;
-        this.armorClass = 0;
-        this.initiative = 0;
-        this.proficiencies = new String[] {"Setup", "new", "proficiencies"};
+        this.initiative = initiative;
+        this.maxHealth = health;
+        this.currentHealth = currentHealth;
+
+        proficiencyBonus = 2;
+
+        //data = "Use the new character constructor";
+
+
+       // this.proficiencies = new String[] {"Setup", "new", "proficiencies"};
     }
 
+    public int getSkill(String stat){
+        int currentAbilityValue = 0;
 
-    public String getName() {
-        return name;
-    }
+        if(stat.equals("acrobatics")||stat.equals("sleight_of_hand")||stat.equals("stealth")){
+            currentAbilityValue = dexterity;
+        } else if(stat.equals("animal_handling")||stat.equals("insight")||stat.equals("medicine")||stat.equals("perception")||stat.equals("survival")){
+            currentAbilityValue = wisdom;
+        } else if(stat.equals("arcana")||stat.equals("history")||stat.equals("investigation")||stat.equals("nature")||stat.equals("religion")) {
+            currentAbilityValue = intelligence;
+        } else if(stat.equals("athletics")) {
+            currentAbilityValue = strength;
+        } else if(stat.equals("deception")||stat.equals("intimidation")||stat.equals("performance")||stat.equals("persuasion")){
+            currentAbilityValue = charisma;
+        }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public String getData() {
-        return data;
-    }
 
-    public void setData(String data) {
-        this.data = data;
-    }
+        double calculateAbilityScore = currentAbilityValue - 10;
+        calculateAbilityScore = calculateAbilityScore/2.0;
+        calculateAbilityScore = Math.floor(calculateAbilityScore);
 
-    public String getCharClass() {
-        return charClass;
-    }
 
-    public void setCharClass(String charClass) {
-        this.charClass = charClass;
-    }
+        if(proficiencies!=null){
+            if(proficiencies.contains(stat)){
+                calculateAbilityScore+= proficiencyBonus;
+            }
+        }
 
-    public String getRace() {
-        return race;
-    }
+        return (int)calculateAbilityScore;
 
-    public void setRace(String race) {
-        this.race = race;
-    }
-
-    public String getAlignment() {
-        return alignment;
-    }
-
-    public void setAlignment(String alignment) {
-        this.alignment = alignment;
-    }
-
-    public int getExp() {
-        return exp;
-    }
-
-    public void setExp(int exp) {
-        this.exp = exp;
-    }
-
-    public int getInventorySlot() {
-        return inventorySlot;
-    }
-
-    public void setInventorySlot(int inventorySlot) {
-        this.inventorySlot = inventorySlot;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    public void setDexterity(int dexterity) {
-        this.dexterity = dexterity;
-    }
-
-    public int getConstitution() {
-        return constitution;
-    }
-
-    public void setConstitution(int constitution) {
-        this.constitution = constitution;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    public int getWisdom() {
-        return wisdom;
-    }
-
-    public void setWisdom(int wisdom) {
-        this.wisdom = wisdom;
-    }
-
-    public int getCharisma() {
-        return charisma;
-    }
-
-    public void setCharisma(int charisma) {
-        this.charisma = charisma;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getProficiencyBonus() {
-        return proficiencyBonus;
-    }
-
-    public void setProficiencyBonus(int proficiencyBonus) {
-        this.proficiencyBonus = proficiencyBonus;
-    }
-
-    public String[] getProficiencies() {
-        return proficiencies;
-    }
-
-    public void setProficiencies(String[] proficiencies) {
-        this.proficiencies = proficiencies;
     }
 
     public int getArmorClass() {
-        return armorClass;
+        int armorClassBase = 10; //+current armor + shield + other possible items
+
+        return armorClassBase;
     }
 
-    public void setArmorClass(int armorClass) {
-        this.armorClass = armorClass;
+    public String getQuickView(){
+
+        return "EXP: "+exp +", Health: "+ currentHealth;
     }
 
-    public int getInitiative() {
-        return initiative;
-    }
+    public int getCurrentHealth() {
 
-    public void setInitiative(int initiative) {
-        this.initiative = initiative;
+        return currentHealth;
     }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setCurrentHealth(int value){
+        if(value>maxHealth){
+            currentHealth = maxHealth;
+        } else {
+            currentHealth = value;
+        }
     }
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,11 +61,17 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
 
         if(characterItem!=null){
 
-            ((TextView)mContext.findViewById(R.id.txt_title)).setText(characterItem.getName());
+            ((TextView)mContext.findViewById(R.id.txt_title)).setText(characterItem.name);
             ((TextView)mContext.findViewById(R.id.main_ac_display)).setText(characterItem.getArmorClass()+"");
-            ((TextView)mContext.findViewById(R.id.health_display)).setText(characterItem.getHealth()+"");
-            ((TextView)mContext.findViewById(R.id.class_display)).setText(characterItem.getCharClass());
-            ((TextView)mContext.findViewById(R.id.race_display)).setText(characterItem.getRace());
+            ((TextView)mContext.findViewById(R.id.health_display)).setText(characterItem.getCurrentHealth()+"");
+            ((TextView)mContext.findViewById(R.id.class_display)).setText(characterItem.charClass);
+            ((TextView)mContext.findViewById(R.id.race_display)).setText(characterItem.race);
+        } else {
+            ((TextView)mContext.findViewById(R.id.txt_title)).setText("No players");
+            ((TextView)mContext.findViewById(R.id.main_ac_display)).setText("0");
+            ((TextView)mContext.findViewById(R.id.health_display)).setText("0");
+            ((TextView)mContext.findViewById(R.id.class_display)).setText("");
+            ((TextView)mContext.findViewById(R.id.race_display)).setText("");
         }
         gridItems = db.getAllCharacters();
         notifyDataSetChanged();
@@ -84,6 +91,7 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
 
             viewHolder.name = convertView.findViewById(R.id.char_name);
             viewHolder.data = convertView.findViewById(R.id.char_data);
+            viewHolder.deleteChar = convertView.findViewById(R.id.delete_character_button);
 
             convertView.setTag(viewHolder);
         } else {
@@ -92,7 +100,7 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
 
 
         viewHolder.name.setText(item.name);
-        viewHolder.data.setText( item.data);
+        viewHolder.data.setText(item.getQuickView());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,11 +113,20 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
             }
         });
 
+        viewHolder.deleteChar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteCharacter(viewHolder.name.getText().toString());
+                refresh();
+            }
+        });
+
         return convertView;
     }
 
     private static class ViewHolder{
         TextView name;
         TextView data;
+        ImageButton deleteChar;
     }
 }

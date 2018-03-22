@@ -55,15 +55,15 @@ public class CombatActivity extends AppCompatActivity {
 
         final EditText hpNumber = (EditText) findViewById(R.id.hpNumber);
         final ProgressBar hpBar = (ProgressBar) findViewById(R.id.hpBar);
-        hpBar.setMax( character.getHealth() );
-        hpBar.setProgress(character.getHealth(),true);
+        hpBar.setMax( character.maxHealth);
+        hpBar.setProgress(character.getCurrentHealth(),true);
 
         final EditText initiative = (EditText) findViewById(R.id.initiativeEdit);
         final EditText speed = (EditText) findViewById(R.id.speedEdit);
         final EditText armorClass = (EditText) findViewById(R.id.armorEdit);
 
-        initiative.setText( character.getInitiative());
-        speed.setText(character.getSpeed());
+        initiative.setText( character.initiative);
+        speed.setText(character.speed);
         armorClass.setText(character.getArmorClass());
 
         hpNumber.addTextChangedListener(new TextWatcher() {
@@ -84,7 +84,7 @@ public class CombatActivity extends AppCompatActivity {
 
                     hpBar.setProgress(Integer.parseInt(s.toString()),true);
 
-                    double hp = ((Integer.parseInt(s.toString())) / character.getHealth()) * 100;
+                    double hp = ((Integer.parseInt(s.toString())) / character.getCurrentHealth()) * 100;
 
 
 

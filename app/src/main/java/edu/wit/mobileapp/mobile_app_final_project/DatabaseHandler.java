@@ -23,10 +23,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        String characterTable = "CREATE TABLE IF NOT EXISTS player_sheets (name TEXT PRIMARY KEY, selected INTEGER, class TEXT, race TEXT, alignment TEXT, proficiencies TEXT, exp INTEGER, inventory INTEGER, strength INTEGER, dexterity INTEGER, constitution INTEGER, intelligence INTEGER, wisdom INTEGER, charisma INTEGER, speed INTEGER, initiative INTEGER, hitPoints INTEGER)";
         db = getWritableDatabase();
-        db.execSQL(characterTable);
-        //clearDatabase();
+       createPlayerTable();
+       // clearDatabase();
         //hp, initiative, ac,
     }
 
@@ -45,12 +44,45 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     }
 
+    void createPlayerTable(){
+        String characterTable = "CREATE TABLE IF NOT EXISTS player_sheets " +
+                "(name TEXT PRIMARY KEY, selected INTEGER, class TEXT, race TEXT, " +
+                "alignment TEXT, proficiencies TEXT, exp INTEGER, inventory INTEGER, " +
+                "strength INTEGER, dexterity INTEGER, constitution INTEGER, " +
+                "intelligence INTEGER, wisdom INTEGER, charisma INTEGER, speed INTEGER, " +
+                "initiative INTEGER, maxHitPoints INTEGER, currentHitPoints INTEGER)";
+
+
+        db.execSQL(characterTable);
+        Log.v(getClass().toString()," character table created");
+    }
+
     void clearDatabase(){
         //db.delete("player_sheets",null,null);
         db.execSQL("DROP TABLE IF EXISTS player_sheets");
+
+        Log.v(getClass().toString()," character table deleted");
+        createPlayerTable();
     }
 
     public void deleteCharacter(String name){
+        if(getSelectedCharacter().name.equals(name)){
+            Cursor cursor = db.rawQuery("SELECT * FROM player_sheets LIMIT 2",null);
+            if (cursor.getCount()>0) {
+                cursor.moveToFirst();
+                do{
+                    CharacterItem item = getCharacterInfo(cursor);
+                    if(item!=null){
+                        if(!item.name.equals(name)){
+                            updateSelected(item.name);
+                        }
+                    }
+                }while(cursor.moveToNext());
+            }
+
+            cursor.close();
+
+        }
         db.delete("player_sheets", "name=?" , new String[]{name});
     }
 
@@ -67,6 +99,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put("class", chosenClass);
         values.put("race", race);
         values.put("alignment", alignment);
+        values.put("proficiencies", proficiencies);
+
         values.put("exp", pcLevel);
         values.put("inventory",0);
         values.put("strength", strength);
@@ -76,9 +110,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put("wisdom", wisdom);
         values.put("charisma", charisma);
         values.put("speed", speed);
-        values.put("proficiencies", proficiencies);
         values.put("initiative", initiative);
-        values.put("hitPoints", hitPoints);
+        values.put("maxHitPoints", hitPoints);
+        values.put("currentHitPoints", hitPoints);
 
         long rowId = db.insert("player_sheets", null, values);
         Log.v("New Character added", characterName+", "+rowId);
@@ -93,13 +127,18 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         if (cursor.getCount()>0) {
             cursor.moveToFirst();
             do{
-                String name = cursor.getString(0);
-                int position = cursor.getInt(1);
-                String data = position+"";
-                for(int x = 2; x < cursor.getColumnCount();x++){
-                    data = data + ", "+cursor.getString(x);
+
+                /*boolean selected = false;
+                if(cursor.getInt(1)==1){
+                    selected = true;
                 }
-                list.add(new CharacterItem(name, data));
+
+                list.add(new CharacterItem(selected, cursor.getString(0), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5), cursor.getInt(6),cursor.getInt(7),cursor.getInt(8),cursor.getInt(9), cursor.getInt(10),cursor.getInt(11),cursor.getInt(12),cursor.getInt(13),cursor.getInt(14),cursor.getInt(15),cursor.getInt(16),cursor.getInt(17)));
+*/
+                CharacterItem item = getCharacterInfo(cursor);
+                if(item!=null){
+                    list.add(item);
+                }
             }while(cursor.moveToNext());
         }
 
@@ -109,39 +148,82 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     public CharacterItem getSelectedCharacter(){
-        CharacterItem characterItem = new CharacterItem();
+        CharacterItem characterItem = null;
         String query = "SELECT * FROM player_sheets WHERE selected=1";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.getCount()>0) {
             cursor.moveToFirst();
 
-            characterItem.setName(cursor.getString(0));
-            characterItem.setSelected(true);
-            characterItem.setCharClass(cursor.getString(2));
-            characterItem.setRace(cursor.getString(3));
-            characterItem.setAlignment(cursor.getString(4));
-            characterItem.setExp(cursor.getInt(5));
-            characterItem.setInventorySlot(cursor.getInt(6));
-            characterItem.setStrength(cursor.getInt(7));
-            characterItem.setDexterity(cursor.getInt(8));
-            characterItem.setConstitution(cursor.getInt(9));
-            characterItem.setIntelligence(cursor.getInt(10));
-            characterItem.setWisdom(cursor.getInt(11));
-            characterItem.setCharisma(cursor.getInt(12));
-            characterItem.setSpeed(cursor.getInt(13));
-            //set proficiencies?
+            characterItem = getCharacterInfo(cursor);
+/*            boolean selected = false;
+            if(cursor.getInt(1)==1){
+                selected = true;
+            }
 
 
-           /* for (int x = 1; x < cursor.getColumnCount(); x++) {
-                data = data + cursor.getString(x) + ",";
+
+
+            try {
+                characterItem = new CharacterItem(selected, cursor.getString(0), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6), cursor.getInt(7), cursor.getInt(8), cursor.getInt(9), cursor.getInt(10), cursor.getInt(11), cursor.getInt(12), cursor.getInt(13), cursor.getInt(14), cursor.getInt(15), cursor.getInt(16), cursor.getInt(17));
+            } catch (RuntimeException e){
+                clearDatabase();
             }*/
-
-           // characterItem = new CharacterItem(name, data);
-
-
         }
         cursor.close();
         return characterItem;
+    }
+
+    private CharacterItem getCharacterInfo(Cursor cursor){
+        boolean selected = false;
+        String name = "";
+        String charClass = "";
+        String race = "";
+        String alignment = "";
+        String proficiencies = "";
+        int exp = 0;
+        int inventorySlot = 0;
+        int strength = 0;
+        int dexterity = 0;
+        int constitution = 0;
+        int intelligence = 0;
+        int wisdom = 0;
+        int charisma = 0;
+        int speed = 0;
+        int initiative = 0;
+        int maxHitPoints = 0;
+        int currentHitPoints = 0;
+
+        try {
+            if(cursor.getInt(1)==1){
+                selected = true;
+            }
+
+            name = cursor.getString(0);
+            charClass = cursor.getString(2);
+            race = cursor.getString(3);
+            alignment = cursor.getString(4);
+            proficiencies = cursor.getString(5);
+            exp = cursor.getInt(6);
+            inventorySlot = cursor.getInt(7);
+            strength = cursor.getInt(8);
+            dexterity = cursor.getInt(9);
+            constitution = cursor.getInt(10);
+            intelligence = cursor.getInt(11);
+            wisdom = cursor.getInt(12);
+            charisma = cursor.getInt(13);
+            speed = cursor.getInt(14);
+            initiative = cursor.getInt(15);
+            maxHitPoints = cursor.getInt(16);
+            currentHitPoints = cursor.getInt(17);
+
+
+        }catch (RuntimeException e){
+            clearDatabase();
+            return null;
+        }
+
+
+        return new CharacterItem(selected,name,charClass,race,alignment,proficiencies,exp,inventorySlot,strength,dexterity,constitution,intelligence,wisdom,charisma,speed,initiative,maxHitPoints,currentHitPoints);
     }
 
 

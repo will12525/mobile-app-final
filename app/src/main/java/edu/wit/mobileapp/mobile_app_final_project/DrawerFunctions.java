@@ -142,6 +142,16 @@ public class DrawerFunctions {
                 Toast.makeText(context.getApplicationContext(), "Already on Spells page", Toast.LENGTH_SHORT).show();
             }
         }
+        else if(id == R.id.home_item_selection){
+            drawer.closeDrawer(GravityCompat.START);
+            if(!context.getClass().equals(MainActivity.class)){
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                context.startActivity(intent);
+            } else{
+                Toast.makeText(context.getApplicationContext(), "Already on Home page", Toast.LENGTH_SHORT).show();
+            }
+        }
         else {
             Intent diceIntent = new Intent(context, DiceControl.class);
             diceIntent.putExtra("statID",id);

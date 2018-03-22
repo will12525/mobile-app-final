@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.wit.mobileapp.mobile_app_final_project.MainActivity">
 
+    <item android:title="@string/home"
+        android:id="@+id/home_item_selection"/>
     <item android:title="@string/character_creation"
         android:id="@+id/character_creation"/>
     <item android:title="Inventory"

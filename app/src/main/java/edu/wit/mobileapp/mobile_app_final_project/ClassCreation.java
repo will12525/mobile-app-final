@@ -428,9 +428,9 @@ public class ClassCreation extends AppCompatActivity {
                         Snackbar.make(v, "Character " + pcName + " already exists", Snackbar.LENGTH_LONG).show();
                         Log.v("ClassCreation", "character " + pcName + " exists");
                     } else {
-                        finish();
                         Log.v("ClassCreation", "character " + pcName + " added");
                         Log.v("ClassCreation", "proficiencies chosen: " + proficiencies);
+                        finish();
                     }
                 }
             }
