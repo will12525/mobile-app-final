@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by lawrencew on 3/9/2018.
@@ -24,9 +25,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         db = getWritableDatabase();
+
        createPlayerTable();
-       // clearDatabase();
-        //hp, initiative, ac,
+
+       /*IF DATABASE CRASHING
+        uncomment the below line and comment the above line. RUN code.
+        then comment below line and uncomment above line.
+        */
+      // clearDatabase();
     }
 
     @Override
@@ -59,37 +65,51 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     void clearDatabase(){
         //db.delete("player_sheets",null,null);
-        db.execSQL("DROP TABLE IF EXISTS player_sheets");
+       // db.execSQL("DROP TABLE IF EXISTS player_sheets");
 
-        Log.v(getClass().toString()," character table deleted");
-        createPlayerTable();
+//        Log.v(getClass().toString()," character table deleted");
+
+        Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+        List<String> tables = new ArrayList<>();
+        //add all tables to a list
+        while (c.moveToNext()) {
+            tables.add(c.getString(0));
+        }
+
+        //drop all tables in the list
+        for (String table : tables) {
+            String dropQuery = "DROP TABLE IF EXISTS " + table;
+            db.execSQL(dropQuery);
+        }
+
+
+       // createPlayerTable();
     }
 
-    public void deleteCharacter(String name){
+    public void deleteCharacter(String name, int invID){
         if(getSelectedCharacter().name.equals(name)){
-            Cursor cursor = db.rawQuery("SELECT * FROM player_sheets LIMIT 2",null);
+            Cursor cursor = db.rawQuery("SELECT name FROM player_sheets LIMIT 2",null);
             if (cursor.getCount()>0) {
                 cursor.moveToFirst();
                 do{
-                    CharacterItem item = getCharacterInfo(cursor);
-                    if(item!=null){
-                        if(!item.name.equals(name)){
-                            updateSelected(item.name);
-                        }
+                    String currentName = cursor.getString(0);
+                    if(!currentName.equals(name)){
+                        updateSelected(currentName);
+                        cursor.moveToNext();
                     }
-                }while(cursor.moveToNext());
+                } while(cursor.moveToNext());
             }
 
             cursor.close();
 
         }
         db.delete("player_sheets", "name=?" , new String[]{name});
+        db.execSQL("DROP TABLE IF EXISTS INV_"+invID);
     }
 
     boolean createCharacter(String characterName, String chosenClass, String race, String alignment, String proficiencies, int pcLevel, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int speed, int initiative, int hitPoints){
 
-        boolean characterExists = updateSelected(characterName);
-        if(characterExists){
+        if(updateSelected(characterName)){
             return false;
         }
 
@@ -102,7 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put("proficiencies", proficiencies);
 
         values.put("exp", pcLevel);
-        values.put("inventory",0);
+        values.put("inventory",createPlayerInventory());
         values.put("strength", strength);
         values.put("dexterity", dexterity);
         values.put("constitution", constitution);
@@ -120,6 +140,88 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return true;
     }
 
+    public int createPlayerInventory(){
+
+        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+
+        List<String> tableNames = new ArrayList<>();
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            do{
+                tableNames.add(cursor.getString(0));
+            } while(cursor.moveToNext());
+        }
+
+        boolean uniqueID = false;
+        int ID = new Random().nextInt(500)+1;
+        do {
+            if(tableNames.contains("INV_"+ID)){
+                ID = new Random().nextInt(500)+1;
+            } else {
+                uniqueID = true;
+                Log.v(getClass().toString()," Found unique inventory ID: "+ID);
+            }
+        }while(!uniqueID);
+
+        String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER)";
+
+        db.execSQL(playerINV);
+        Log.v(getClass().toString()," character inventory created with ID: "+ID);
+
+        cursor.close();
+
+        return ID;
+
+    }
+
+    List<invItem> getCharacterInventory(int inventoryID){
+        Cursor cursor = db.rawQuery("SELECT * FROM INV_"+inventoryID, null);
+        List<invItem> items = new ArrayList<>();
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();
+            do {
+                invItem item = new invItem();
+                item.itemName = cursor.getString(0);
+                item.itemWeight = cursor.getString(1);
+                item.description = cursor.getString(2);
+                item.dmgType = cursor.getString(3);
+                item.value = cursor.getString(4);
+                item.die = cursor.getInt(5);
+                item.numDie = cursor.getInt(6);
+                item.ac = cursor.getInt(7);
+                items.add(item);
+            } while(cursor.moveToNext());
+        }
+        return items;
+    }
+
+
+    public invItem addItem(int invID, invItem item){
+        //String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER)";
+
+
+        ContentValues values = new ContentValues();
+        values.put("itemName",item.itemName);
+        values.put("itemWeight",item.itemWeight);
+        values.put("description", item.description);
+        values.put("damageType", item.dmgType);
+        values.put("value", item.value);
+        values.put("die", item.die);
+        values.put("numDie",item.numDie);
+        values.put("modifiedAC",item.ac);
+
+        long rowId = db.insert("INV_"+invID, null, values);
+
+        item.itemID = (int)rowId;
+
+        return item;
+    }
+    public void deleteItem(int invID, invItem item){
+
+        db.delete("INV_"+invID, "id=?" , new String[]{item.itemID+""});
+
+    }
+
     List<CharacterItem> getAllCharacters(){
         Cursor cursor = db.rawQuery("SELECT * FROM player_sheets",null);
 
@@ -128,13 +230,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             cursor.moveToFirst();
             do{
 
-                /*boolean selected = false;
-                if(cursor.getInt(1)==1){
-                    selected = true;
-                }
-
-                list.add(new CharacterItem(selected, cursor.getString(0), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5), cursor.getInt(6),cursor.getInt(7),cursor.getInt(8),cursor.getInt(9), cursor.getInt(10),cursor.getInt(11),cursor.getInt(12),cursor.getInt(13),cursor.getInt(14),cursor.getInt(15),cursor.getInt(16),cursor.getInt(17)));
-*/
                 CharacterItem item = getCharacterInfo(cursor);
                 if(item!=null){
                     list.add(item);
@@ -218,7 +313,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
 
         }catch (RuntimeException e){
-            clearDatabase();
+           // clearDatabase();
             return null;
         }
 

@@ -20,6 +20,9 @@ public class invItem {
 
     //0=anything 1=weapon 2=armor/accessory
     public int type=0;
+
+    //added by DB to identify the item
+    public int itemID;
 }
 
 

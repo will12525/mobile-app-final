@@ -116,7 +116,7 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
         viewHolder.deleteChar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.deleteCharacter(viewHolder.name.getText().toString());
+                db.deleteCharacter(viewHolder.name.getText().toString(), item.inventorySlot);
                 refresh();
             }
         });

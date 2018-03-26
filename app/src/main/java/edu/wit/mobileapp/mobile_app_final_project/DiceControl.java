@@ -253,7 +253,11 @@ public class DiceControl extends AppCompatActivity {
 
 
     private int rollDice(int count, int max){
-        return (new Random().nextInt(max)+1)*count;
+        int returnValue = 0;
+        for(int x = 0; x < count; x++){
+            returnValue += new Random().nextInt(max)+1;
+        }
+        return returnValue;//(new Random().nextInt(max)+1)*count;
     }
 
     @SuppressLint("ValidFragment")
