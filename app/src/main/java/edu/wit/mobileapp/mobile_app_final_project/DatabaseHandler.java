@@ -197,7 +197,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
 
-    public invItem addItem(int invID, invItem item){
+    public invItem addItem(invItem item){
         //String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER)";
 
 
@@ -211,15 +211,19 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put("numDie",item.numDie);
         values.put("modifiedAC",item.ac);
 
+        int invID = getSelectedCharacter().inventorySlot;
+
         long rowId = db.insert("INV_"+invID, null, values);
 
         item.itemID = (int)rowId;
 
         return item;
     }
-    public void deleteItem(int invID, invItem item){
-
+    public void deleteItem(invItem item){
+        int invID = getSelectedCharacter().inventorySlot;
         db.delete("INV_"+invID, "id=?" , new String[]{item.itemID+""});
+
+
 
     }
 
