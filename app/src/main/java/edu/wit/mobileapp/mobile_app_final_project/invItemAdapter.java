@@ -38,6 +38,10 @@ public class invItemAdapter extends ArrayAdapter<invItem> {
         weight = (TextView)view.findViewById(R.id.listWeight);
         weight.setText(item.itemWeight);
 
+        TextView value;
+        value=(TextView)view.findViewById(R.id.listValue);
+        value.setText(item.value);
+
         Button btn =(Button)view.findViewById(R.id.deleteInvBtn);
 
         btn.setOnClickListener(new View.OnClickListener(){
