@@ -19,6 +19,8 @@ import java.util.List;
 public class invItemAdapter extends ArrayAdapter<invItem> {
     private LayoutInflater mInflater;
     private List<invItem> list;
+    private DatabaseHandler db;
+
 
     public invItemAdapter(Context context, int rid, List<invItem> list){
         super(context, rid, list);
@@ -27,6 +29,7 @@ public class invItemAdapter extends ArrayAdapter<invItem> {
     }
     public View getView(final int position, View convertView, ViewGroup parent){
         invItem item = (invItem)getItem(position);
+        db = new DatabaseHandler(getContext());
 
         View view = mInflater.inflate(R.layout.inv_item, null);
 
@@ -47,6 +50,7 @@ public class invItemAdapter extends ArrayAdapter<invItem> {
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                db.deleteItem(list.get(position));
                 list.remove(position);
                 notifyDataSetChanged();
             }

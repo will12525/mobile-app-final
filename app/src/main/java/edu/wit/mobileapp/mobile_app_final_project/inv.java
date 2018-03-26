@@ -127,6 +127,7 @@ public class inv extends AppCompatActivity {
                                 String wtConvert = etWt.getText().toString();
                                 wtCounter+=Double.parseDouble(wtConvert);
                                 list.add(item);
+                                db.addItem(item);
                                 adapter.notifyDataSetChanged();
                             }
                         })
@@ -175,6 +176,7 @@ public class inv extends AppCompatActivity {
                                 toAdd.value=etVal.getText().toString();
                                 wtCounter+=Double.parseDouble(toAdd.itemWeight);
                                 list.add(toAdd);
+                                db.addItem(toAdd);
                                 adapter.notifyDataSetChanged();
 
                             }
