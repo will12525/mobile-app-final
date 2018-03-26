@@ -26,14 +26,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         db = getWritableDatabase();
 
-       //createPlayerTable();
+       createPlayerTable();
 
        /*IF DATABASE CRASHING
         uncomment the below line and comment the above line. RUN code. It should crash this run.
         then comment below line and uncomment above line.
         Now it should run fine
         */
-       clearDatabase();
+       //clearDatabase();
     }
 
     @Override
