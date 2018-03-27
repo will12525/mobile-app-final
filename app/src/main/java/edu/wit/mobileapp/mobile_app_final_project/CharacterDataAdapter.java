@@ -1,10 +1,15 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,12 +121,41 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
         viewHolder.deleteChar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FireMissilesDialogFragment fireMissilesDialogFragment = new FireMissilesDialogFragment();
+
+                Bundle args = new Bundle();
+                args.putString("name", viewHolder.name.getText().toString());
+                fireMissilesDialogFragment.setArguments(args);
+                fireMissilesDialogFragment.show(mContext.getFragmentManager(),"Testing");
+
                 db.deleteCharacter(viewHolder.name.getText().toString(), item.inventorySlot);
                 refresh();
             }
         });
 
         return convertView;
+    }
+
+    public static class FireMissilesDialogFragment extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+            builder.setMessage("Delete " + "test" + "?")
+                    .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    })
+                    .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            return builder.create();
+        }
     }
 
     private static class ViewHolder{

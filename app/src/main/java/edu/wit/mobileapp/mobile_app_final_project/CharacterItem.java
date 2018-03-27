@@ -2,6 +2,7 @@ package edu.wit.mobileapp.mobile_app_final_project;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class CharacterItem {
      String alignment;
 
      //String[] proficiencies;
-     List<String> proficiencies;
+     List<String> proficiencies = new ArrayList<>();
 
      int exp;
      int inventorySlot;
@@ -50,7 +51,7 @@ public class CharacterItem {
         this.charClass = charClass;
         this.race=race;
         this.alignment = alignment;
-        if(proficiencies.equals(null)) {
+        if(proficiencies != null && !proficiencies.isEmpty()) {
            // String[] tempProficiencies = proficiencies.split(",");
             this.proficiencies.addAll(Arrays.asList(proficiencies.split(",")));
         }
