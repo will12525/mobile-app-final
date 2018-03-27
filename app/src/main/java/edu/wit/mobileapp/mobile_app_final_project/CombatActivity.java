@@ -33,12 +33,28 @@ public class CombatActivity extends AppCompatActivity {
 
         List<BattleItem> battleItemListing = new ArrayList<BattleItem>();
 
-        battleItemListing.add(new BattleItem("Xtreme Teen Bible","1d8", "holy", true));
-        battleItemListing.add(new BattleItem("Umbra Staff","1d12", "LUP", true));
-        battleItemListing.add(new BattleItem("Railsplitter","1d20", "Trees", false));
-        battleItemListing.add(new BattleItem("Flaming Raging Poisoning Sword of Doom","2d12", "Taako", false));
+        DatabaseHandler db = new DatabaseHandler(this);
+        final CharacterItem character = db.getSelectedCharacter();
 
-        battleItemListing.add(new BattleItem("Magic Missle","3d4","Abraka fuck you!",true));
+        List<invItem> processList = db.getCharacterInventory();
+
+        for(int i = 0; i < processList.size(); i++)
+        {
+            if(processList.get(i).type == 1) {
+                String tempName = processList.get(i).itemName;
+                int tempMulti = processList.get(i).numDie;
+                int tempNum = processList.get(i).die;
+                String tempDmg = processList.get(i).dmgType;
+                String tempDescription = processList.get(i).description;
+                battleItemListing.add(new BattleItem(tempName, tempMulti, tempNum, tempDmg, false));
+            }
+        }
+        battleItemListing.add(new BattleItem("Xtreme Teen Bible",1, 12, "holy", true));
+        battleItemListing.add(new BattleItem("Umbra Staff",1, 12, "LUP", true));
+        battleItemListing.add(new BattleItem("Railsplitter",1, 12,"Trees", false));
+        battleItemListing.add(new BattleItem("Flaming Raging Poisoning Sword of Doom",1, 12, "Taako", false));
+
+        battleItemListing.add(new BattleItem("Magic Missle",1, 12,"Abraka fuck you!",true));
 
 
         BattleItemAdapter adapter = new BattleItemAdapter(battleItemListing);
@@ -49,8 +65,7 @@ public class CombatActivity extends AppCompatActivity {
             // Do a thing
         }
 
-        DatabaseHandler db = new DatabaseHandler(this);
-        final CharacterItem character = db.getSelectedCharacter();
+
 
 
         final EditText hpNumber = (EditText) findViewById(R.id.hpNumber);
