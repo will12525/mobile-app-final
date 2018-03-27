@@ -118,13 +118,15 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
+            android:animateLayoutChanges="false"
             android:columnWidth="90dp"
+            android:focusableInTouchMode="false"
             android:gravity="center"
             android:horizontalSpacing="10dp"
+
             android:numColumns="3"
             android:stretchMode="columnWidth"
             android:verticalSpacing="10dp"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
