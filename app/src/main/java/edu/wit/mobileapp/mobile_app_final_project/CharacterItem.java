@@ -50,7 +50,7 @@ public class CharacterItem {
         this.charClass = charClass;
         this.race=race;
         this.alignment = alignment;
-        if(proficiencies!=null) {
+        if(proficiencies.equals(null)) {
            // String[] tempProficiencies = proficiencies.split(",");
             this.proficiencies.addAll(Arrays.asList(proficiencies.split(",")));
         }

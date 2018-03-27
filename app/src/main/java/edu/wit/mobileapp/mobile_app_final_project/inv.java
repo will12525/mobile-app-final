@@ -159,7 +159,7 @@ public class inv extends AppCompatActivity {
                 final EditText etDieType=wepView.findViewById(R.id.addWepDieType);
                 final EditText etDamageType=wepView.findViewById(R.id.addWepDamageType);
                 final EditText etDesc=wepView.findViewById(R.id.addWepDesc);
-                final EditText etVal=wepView.findViewById(R.id.wepValueIn);
+                final EditText etVal=wepView.findViewById(R.id.addWepValue);
                 ADB
                         .setCancelable(true)
                         .setPositiveButton("Done", new DialogInterface.OnClickListener() {

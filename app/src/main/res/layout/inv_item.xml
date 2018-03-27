@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/listName"
-        android:layout_width="229dp"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:text="ITEM NAME"
@@ -16,16 +16,18 @@
 
     <TextView
         android:id="@+id/listWeight"
-        android:layout_width="70dp"
+        android:layout_width="78dp"
         android:layout_height="35dp"
         android:gravity="center"
         android:text="WT"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
     <TextView
         android:id="@+id/listValue"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text=""/>
+        android:layout_width="54dp"
+        android:layout_height="35dp"
+        android:text="Val"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <Button
         android:id="@+id/deleteInvBtn"
@@ -33,10 +35,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:gravity="center"
         android:background="@android:color/holo_red_light"
+        android:focusable="false"
+        android:gravity="center"
         android:text="-"
-        android:textSize="35sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:focusable="false"/>
+        android:textSize="35sp" />
 </LinearLayout>

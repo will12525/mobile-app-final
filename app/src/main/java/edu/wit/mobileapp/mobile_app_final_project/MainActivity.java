@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         db = new DatabaseHandler(this);
-        // IN CASE OF DATABASE NULL ERRORS, UNCOMMENT, RUN, RECOMMENT -Dylan
-/*        db.clearDatabase();
-        db.createPlayerTable();*/
         new DrawerFunctions(this,db);
 
 
