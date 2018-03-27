@@ -175,7 +175,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     }
 
-    List<invItem> getCharacterInventory(int inventoryID){
+    List<invItem> getCharacterInventory(){
+        int inventoryID = getSelectedCharacter().inventorySlot;
         Cursor cursor = db.rawQuery("SELECT * FROM INV_"+inventoryID, null);
         List<invItem> items = new ArrayList<>();
         if(cursor.getCount()>0){
@@ -193,6 +194,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 items.add(item);
             } while(cursor.moveToNext());
         }
+
+        cursor.close();
         return items;
     }
 
