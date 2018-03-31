@@ -164,7 +164,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             }
         }while(!uniqueID);
 
-        String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER)";
+        String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER, id INTEGER)";
 
         db.execSQL(playerINV);
         Log.v(getClass().toString()," character inventory created with ID: "+ID);
@@ -224,7 +224,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
     public void deleteItem(invItem item){
         int invID = getSelectedCharacter().inventorySlot;
-        db.delete("INV_"+invID, "id=?" , new String[]{item.itemID+""});
+        db.delete("INV_"+invID, "itemName=?" , new String[]{item.itemName});
 
 
 
