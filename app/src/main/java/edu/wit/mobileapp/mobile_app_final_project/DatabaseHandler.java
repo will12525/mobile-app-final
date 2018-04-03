@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -210,9 +209,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         cursor.close();
         return items;
     }
-
-
-    
 
 
 
