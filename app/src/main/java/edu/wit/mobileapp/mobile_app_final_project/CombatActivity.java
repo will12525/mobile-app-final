@@ -27,13 +27,16 @@ public class CombatActivity extends AppCompatActivity {
 
         setContentView(R.layout.combat_activity);
 
+        DatabaseHandler db = new DatabaseHandler(this);
+        new DrawerFunctions(this,db);
+
         RecyclerView rv = (RecyclerView) findViewById(R.id.attackList);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(llm);
 
         List<BattleItem> battleItemListing = new ArrayList<BattleItem>();
 
-        DatabaseHandler db = new DatabaseHandler(this);
+
         final CharacterItem character = db.getSelectedCharacter();
 
         List<invItem> processList = db.getCharacterInventory();
@@ -49,12 +52,13 @@ public class CombatActivity extends AppCompatActivity {
                 battleItemListing.add(new BattleItem(tempName, tempMulti, tempNum, tempDmg, false));
             }
         }
-        battleItemListing.add(new BattleItem("Xtreme Teen Bible",1, 12, "holy", true));
+
+       /* battleItemListing.add(new BattleItem("Xtreme Teen Bible",1, 12, "holy", true));
         battleItemListing.add(new BattleItem("Umbra Staff",1, 12, "LUP", true));
         battleItemListing.add(new BattleItem("Railsplitter",1, 12,"Trees", false));
         battleItemListing.add(new BattleItem("Flaming Raging Poisoning Sword of Doom",1, 12, "Taako", false));
 
-        battleItemListing.add(new BattleItem("Magic Missle",1, 12,"Abraka fuck you!",true));
+        battleItemListing.add(new BattleItem("Magic Missle",1, 12,"Abraka fuck you!",true)); */
 
 
         BattleItemAdapter adapter = new BattleItemAdapter(battleItemListing);
@@ -77,9 +81,9 @@ public class CombatActivity extends AppCompatActivity {
         final EditText speed = (EditText) findViewById(R.id.speedEdit);
         final EditText armorClass = (EditText) findViewById(R.id.armorEdit);
 
-        initiative.setText( character.initiative);
-        speed.setText(character.speed);
-        armorClass.setText(character.getArmorClass());
+       initiative.setText( character.initiative + "");
+        speed.setText(character.speed + "");
+        armorClass.setText(character.getArmorClass() + "");
 
         hpNumber.addTextChangedListener(new TextWatcher() {
             @Override

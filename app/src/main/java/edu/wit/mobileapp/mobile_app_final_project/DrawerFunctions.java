@@ -152,6 +152,16 @@ public class DrawerFunctions {
                 Toast.makeText(context.getApplicationContext(), "Already on Home page", Toast.LENGTH_SHORT).show();
             }
         }
+        else if(id == R.id.combatMenu){
+            drawer.closeDrawer(GravityCompat.START);
+            if(!context.getClass().equals(CombatActivity.class)){
+                Intent intent = new Intent(context, CombatActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                context.startActivity(intent);
+            } else{
+                Toast.makeText(context.getApplicationContext(), "Already on Combat page", Toast.LENGTH_SHORT).show();
+            }
+        }
         else {
             Intent diceIntent = new Intent(context, DiceControl.class);
             diceIntent.putExtra("statID",id);

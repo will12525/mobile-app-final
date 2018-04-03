@@ -60,6 +60,7 @@
     <string name="success">Success</string>
     <string name="failure">Failure</string>
     <string name="home">Home</string>
+    <string name="combat_menu">Combat</string>
 
     <string-array name="alignments">
         <item>Alignment</item>
@@ -116,6 +117,21 @@
         <item>Level 8 Spell</item>
         <item>Level 9 Spell</item>
     </string-array>
+
+    <string-array name="combatStats">
+        <item>Speed</item>
+        <item>Armor Class</item>
+        <item>HP</item>
+        <item>Saves</item>
+        <item>Initiative</item>
+    </string-array>
+
+
+    <string name="speed">Speed</string>
+    <string name="armorClass">Armor Class</string>
+    <string name="hp">HP</string>
+    <string name="saves">Saves</string>
+    <string name="initiative">Initiative</string>
 
 
 

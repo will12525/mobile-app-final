@@ -11,6 +11,9 @@
         android:id="@+id/invMenu"/>
     <item android:title="Spells"
         android:id="@+id/spellsMenu"/>
+    <item
+        android:id="@+id/combatMenu"
+        android:title="@string/combat_menu" />
 
 
 </menu>
