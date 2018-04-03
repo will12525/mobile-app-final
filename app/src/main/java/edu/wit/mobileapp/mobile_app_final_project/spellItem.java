@@ -13,6 +13,7 @@ public class spellItem {
     String spDmgType="";
     //Sptype 0=not to combat, 1=to combat
     int spType=0;
+    int itemID;
 
     public String getSpellDescription()
     {

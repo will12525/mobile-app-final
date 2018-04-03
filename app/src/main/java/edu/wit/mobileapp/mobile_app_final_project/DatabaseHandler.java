@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -110,6 +111,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             cursor.moveToFirst();
             int invID = cursor.getInt(0);
             db.execSQL("DROP TABLE IF EXISTS INV_"+invID);
+            db.execSQL("DROP TABLE IF EXISTS SPELLS_"+invID);
         }
 
         db.delete("player_sheets", "name=?" , new String[]{name});
@@ -172,8 +174,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         }while(!uniqueID);
 
         String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER)";
-
         db.execSQL(playerINV);
+
+        String playerSpells = "CREATE TABLE IF NOT EXISTS SPELLS_"+ID+" (spellName TEXT, spellDescription TEXT, spellDamageType TEXT, spellLevel INTEGER, spellDie INTEGER, spellDieNumber INTEGER, spellType INTEGER)";
+        db.execSQL(playerINV);
+
         Log.v(getClass().toString()," character inventory created with ID: "+ID);
 
         cursor.close();
@@ -207,6 +212,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
 
+    
+
+
+
+
     public invItem addItem(invItem item){
         //String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER)";
 
@@ -229,11 +239,36 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         return item;
     }
+    public spellItem addSpell(spellItem item){
+      //  String playerSpells = "CREATE TABLE IF NOT EXISTS SPELLS_"+ID+" (spellName TEXT, spellDescription TEXT, spellDamageType TEXT, spellLevel INTEGER, spellDie INTEGER, spellDieNumber INTEGER, spellType INTEGER)";
+
+
+
+        ContentValues values = new ContentValues();
+        values.put("spellName",item.spellName);
+        values.put("spellDescription",item.spellDescription);
+        values.put("spellDamageType", item.spDmgType);
+        values.put("spellLevel", item.spellLevel);
+        values.put("spellDie", item.spDie);
+        values.put("spellDieNumber", item.spDie);
+        values.put("spellType",item.spType);
+
+        int invID = getSelectedCharacter().inventorySlot;
+
+        long rowId = db.insert("INV_"+invID, null, values);
+
+        item.itemID = (int)rowId;
+
+        return item;
+    }
     public void deleteItem(invItem item){
         int invID = getSelectedCharacter().inventorySlot;
         db.delete("INV_"+invID, "itemName=?" , new String[]{item.itemName});
 
-
+    }
+    public void deleteSpell(spellItem item){
+        int spellID = getSelectedCharacter().inventorySlot;
+        db.delete("SPELLS_"+spellID, "itemName=?" , new String[]{item.spellName});
 
     }
 
