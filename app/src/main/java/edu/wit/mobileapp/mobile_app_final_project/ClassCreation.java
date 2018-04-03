@@ -419,7 +419,7 @@ public class ClassCreation extends AppCompatActivity {
                             proficiencies += (i < numberProf) ? bundle.getString("prof" + i) + "," : bundle.getString("prof" + i);
                         }
                     }
-                    int initiative = getMod(dexterity) + 10;
+                    int initiative = getMod(dexterity);
                     int hitPoints = getHitPoints(classChosen, pcExperience, getMod(constitution));
                     Log.v("ClassCreation", "initiative: " + initiative + " hit points: " + hitPoints);
 
