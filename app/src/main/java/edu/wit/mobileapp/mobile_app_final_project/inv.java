@@ -37,7 +37,7 @@ public class inv extends AppCompatActivity {
     int gold,silver,copper;
     AlertDialog alertDialog;
 
-//TODO Edit itemAddDialog for description, damage, damage type, item type(?), return to database somehow
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

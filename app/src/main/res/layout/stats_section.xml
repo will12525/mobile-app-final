@@ -10,16 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        
+
         <ProgressBar
             android:id="@+id/hpBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="119dp"
             android:layout_height="114dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/circle_background"
             android:indeterminate="false"
             android:progressDrawable="@drawable/circular_progress_bar"
-            android:progressTint="@android:color/holo_red_dark"
 
+            android:progressTint="@android:color/holo_blue_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -33,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="HP"
 
+            android:text="@string/hp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hpBar" />
@@ -65,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
-            android:text="Armor Class"
+            android:text="@string/armorClass"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -76,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
-            android:text="Initiative"
+            android:text="@string/initiative"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -109,14 +112,14 @@
             android:id="@+id/speedView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Speed"
+            android:text="@string/speed"
             app:layout_constraintBottom_toTopOf="@+id/armorEdit"
             app:layout_constraintStart_toStartOf="@+id/armorEdit" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saves"
+            android:text="@string/saves"
             app:layout_constraintBottom_toTopOf="@+id/initiativeEdit"
             app:layout_constraintEnd_toEndOf="@+id/initiativeEdit" />
 
@@ -143,7 +146,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="right">
+                android:gravity="center_horizontal">
 
                 <CheckBox
                     android:id="@+id/deathSave1"
@@ -167,7 +170,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="right">
+                android:gravity="end">
 
                 <CheckBox
                     android:id="@+id/lifeSave1"

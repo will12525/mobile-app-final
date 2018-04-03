@@ -13,13 +13,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-//TODO On touch display spell description
+
 public class spells extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -62,6 +63,10 @@ public class spells extends AppCompatActivity {
                 //Prepare to receive data
                 final EditText etSpName=dView.findViewById(R.id.spellNameIn);
                 final EditText etSpDescription=dView.findViewById(R.id.spellDescIn);
+                final EditText etSpDmgDienumIn=dView.findViewById(R.id.spellDmgDieNumIn);
+                final EditText etSpDmgDieTypeIn=dView.findViewById(R.id.spellDmgDieTypeIn);
+                final RadioButton isCombat =dView.findViewById(R.id.toCombatRadioSp);
+                final EditText etSpDmgType = dView.findViewById(R.id.spellDmgTypeIn);
                 //Initialize Spinner
                 final Spinner lvlSelect = (Spinner)dView.findViewById(R.id.splvlDropdown);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext, R.array.spellLvl, android.R.layout.simple_spinner_item);
@@ -79,6 +84,13 @@ public class spells extends AppCompatActivity {
                                 lvlSelect.setOnItemSelectedListener(null);
                                 int spLvl = (int)lvlSelect.getSelectedItemId();
                                 spellIn.spellLevel=spLvl;
+                                spellIn.spDie=Integer.parseInt(etSpDmgDieTypeIn.getText().toString());
+                                spellIn.spNumDie=Integer.parseInt(etSpDmgDienumIn.getText().toString());
+                                spellIn.spDmgType=etSpDmgType.getText().toString();
+                                if(isCombat.isChecked())
+                                    spellIn.spType=1;
+                                else
+                                    spellIn.spType=0;
                                 List<spellItem> list = listDataChild.get(listDataHeader.get(spLvl));
                                 list.add(spellIn);
                                 listDataChild.put(listDataHeader.get(spLvl), list);
@@ -110,7 +122,7 @@ public class spells extends AppCompatActivity {
 
                 AlertDB.setTitle("Spell Description");
                 AlertDB.setView(descView);
-                displayDesc.setText(spellToDisp.get(childPos).getSpellDescription());
+                displayDesc.setText("Spell Name: "+spellToDisp.get(childPos).spellName+"\nSpell Level: "+spellToDisp.get(childPos).spellLevel+"\nSpell Damage: "+spellToDisp.get(childPos).spNumDie+"d"+spellToDisp.get(childPos).spDie+"\nDamage Type: "+spellToDisp.get(childPos).spDmgType+"\nSpell Description: "+spellToDisp.get(childPos).spellDescription);
 
                 AlertDB
                         .setCancelable(true)
