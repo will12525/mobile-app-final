@@ -22,12 +22,12 @@
         android:text="Weapon"
         tools:layout_editor_absoluteX="147dp"
         tools:layout_editor_absoluteY="152dp" />
-
-    <Button
+<!--Commenting out until I have a chance to implement, low priority-->
+<!--    <Button
         android:id="@+id/armorBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Equipment"
         tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="200dp" />
+        tools:layout_editor_absoluteY="200dp" />-->
 </LinearLayout>

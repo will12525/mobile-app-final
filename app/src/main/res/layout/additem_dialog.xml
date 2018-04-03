@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:hint="Enter Item Weight"
+        android:inputType="numberDecimal"
         android:textSize="25sp" />
 
     <TextView

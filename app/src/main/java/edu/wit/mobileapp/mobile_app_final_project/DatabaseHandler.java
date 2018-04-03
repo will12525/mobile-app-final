@@ -231,7 +231,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
     public void deleteItem(invItem item){
         int invID = getSelectedCharacter().inventorySlot;
-        db.delete("INV_"+invID, "id=?" , new String[]{item.itemID+""});
+        db.delete("INV_"+invID, "itemName=?" , new String[]{item.itemName});
 
 
 

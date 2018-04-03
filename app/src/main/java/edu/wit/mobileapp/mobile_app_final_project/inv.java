@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,11 +30,12 @@ public class inv extends AppCompatActivity {
     ListView lv;
     double wtCounter=0;
     //textview gold/silver/copper
-    TextView tvg, tvs, tvc;
+    TextView tvg, tvs, tvc, tvWeight;
     final Context mContext = this;
     private DatabaseHandler db;
-
+    CharacterItem current;
     int gold,silver,copper;
+    AlertDialog alertDialog;
 
 //TODO Edit itemAddDialog for description, damage, damage type, item type(?), return to database somehow
     @Override
@@ -41,9 +44,13 @@ public class inv extends AppCompatActivity {
         setContentView(R.layout.activity_inv);
         setTitle("Inventory");
 
+
+        tvWeight=findViewById(R.id.loadView);
         //create db for hamburgers
         db = new DatabaseHandler(this);
         new DrawerFunctions(this, db);
+        //Repopulate inventory from db
+        current = db.getSelectedCharacter();
         //Money Setup
         moneyBtn=findViewById(R.id.btnMoney);
         tvg = findViewById(R.id.goldView);
@@ -58,18 +65,14 @@ public class inv extends AppCompatActivity {
         adapter = new invItemAdapter(this, 0,list);
         lv=findViewById(R.id.invList);
         lv.setAdapter(adapter);
+        repopulate();
+        setLoad();
         //First List Element contains Column Titles
-        invItem header = new invItem();
-        header.itemName="Item Name";
-        header.itemWeight="Weight";
         //Nested Dialog prep
         LayoutInflater inflater = LayoutInflater.from(mContext);
         dialogView = inflater.inflate(R.layout.dialog_itemtype, null);
         wepBtn = (Button)dialogView.findViewById(R.id.weaponBtn);
-        armBtn=(Button)dialogView.findViewById(R.id.armorBtn);
         miscBtn=(Button)dialogView.findViewById(R.id.genericBtn);
-
-        list.add(header);
 
         //Handles button from Inventory activity screen
         itemBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,14 +90,18 @@ public class inv extends AppCompatActivity {
                     }
                 });
                 //show dialog
-                AlertDialog alertDialog = ADB.create();
+                alertDialog = ADB.create();
                 alertDialog.show();
+
             }
         });
         //Adding Misc item
         miscBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alertDialog.dismiss();
+                if(view.getParent()!=null)
+                    ((ViewGroup)view.getParent().getParent()).removeView(view);
                 //create Alert Dialog
                 final AlertDialog.Builder ADB = new AlertDialog.Builder(inv.this);
                 LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -129,6 +136,7 @@ public class inv extends AppCompatActivity {
                                 list.add(item);
                                 db.addItem(item);
                                 adapter.notifyDataSetChanged();
+                                setLoad();
                             }
                         })
                         //Set Cancel Button
@@ -139,14 +147,16 @@ public class inv extends AppCompatActivity {
                             }
                         });
                 //show dialog
-                AlertDialog alertDialog = ADB.create();
-                alertDialog.show();
+                AlertDialog miscDialog = ADB.create();
+
+                miscDialog.show();
             }
         });
         //Adding Weapon item
         wepBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+                alertDialog.dismiss();
                 final AlertDialog.Builder ADB = new AlertDialog.Builder(inv.this);
                 LayoutInflater inflater = LayoutInflater.from(mContext);
                 ADB.setTitle("ADD WEAPON");
@@ -178,7 +188,7 @@ public class inv extends AppCompatActivity {
                                 list.add(toAdd);
                                 db.addItem(toAdd);
                                 adapter.notifyDataSetChanged();
-
+                                setLoad();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -194,6 +204,7 @@ public class inv extends AppCompatActivity {
         moneyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alertDialog.dismiss();
                 final AlertDialog.Builder ADB2 = new AlertDialog.Builder(inv.this);
                 LayoutInflater inflater2 = LayoutInflater.from(mContext);
                 final View moneyView = inflater2.inflate(R.layout.money_dialog, null);
@@ -233,9 +244,71 @@ public class inv extends AppCompatActivity {
             }
         });
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final AlertDialog.Builder ADBDisp = new AlertDialog.Builder(inv.this);
+                LayoutInflater inf = LayoutInflater.from(mContext);
+                final View descView = inf.inflate(R.layout.inventory_display_dialog, null);
+                final TextView display = (TextView)descView.findViewById(R.id.invDisplayDialog);
+                final invItem itemToDisp = list.get(i);
+
+                ADBDisp.setTitle("Item Description");
+                ADBDisp.setView(descView);
+                if (itemToDisp.type == 0)
+                {
+                    String out="Item Name: "+itemToDisp.itemName;
+                    out+="\nItem Weight: "+itemToDisp.itemWeight;
+                    out+="\nItem Value: "+itemToDisp.value;
+                    out+="\nItem Description: "+itemToDisp.description;
+                    display.setText(out);
+                }else{
+                    String out="Item Name: "+itemToDisp.itemName;
+                    out+="\nItem Weight: "+itemToDisp.itemWeight;
+                    out+="\nItem Value: "+itemToDisp.value;
+                    out+="\nWeapon Damage: "+itemToDisp.numDie+"d"+itemToDisp.die;
+                    out+="\nDamage Type: "+itemToDisp.dmgType;
+                    out+="\nItem Description: "+itemToDisp.description;
+                    display.setText(out);
+                }
+                ADBDisp
+                        .setCancelable(true)
+                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+            AlertDialog ad = ADBDisp.create();
+            ad.show();
+            }
+        });
+
     }
     public void removeItem(View v){
         invItem itemToRemove = (invItem)v.getTag();
         adapter.remove(itemToRemove);
+    }
+    public void repopulate() {
+        List<invItem> temp = db.getCharacterInventory();
+        setLoad();
+        if (temp.isEmpty()) {
+            invItem header = new invItem();
+            header.itemName = "Item Name";
+            header.itemWeight = "Weight";
+            header.value = "Val";
+            list.add(header);
+            db.addItem(header);
+        } else {
+            for (int i = 0; i < temp.size(); i++) {
+                if(!temp.get(i).itemWeight.equals("Weight"))
+                    wtCounter += Double.parseDouble(temp.get(i).itemWeight);
+                list.add(temp.get(i));
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+    public void setLoad(){
+        tvWeight.setText("Current Load: "+wtCounter+" / "+(db.getSelectedCharacter().strength*15)+"( max load");
     }
 }

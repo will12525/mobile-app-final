@@ -28,7 +28,7 @@ public class invItemAdapter extends ArrayAdapter<invItem> {
         mInflater=(LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
     }
     public View getView(final int position, View convertView, ViewGroup parent){
-        invItem item = (invItem)getItem(position);
+        final invItem item = (invItem)getItem(position);
         db = new DatabaseHandler(getContext());
 
         View view = mInflater.inflate(R.layout.inv_item, null);
@@ -50,7 +50,7 @@ public class invItemAdapter extends ArrayAdapter<invItem> {
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                db.deleteItem(list.get(position));
+                db.deleteItem(item);
                 list.remove(position);
                 notifyDataSetChanged();
             }
