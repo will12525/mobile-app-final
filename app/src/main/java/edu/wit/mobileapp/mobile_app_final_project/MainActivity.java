@@ -1,7 +1,12 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -34,8 +39,12 @@ public class MainActivity extends AppCompatActivity {
         db = new DatabaseHandler(this);
         new DrawerFunctions(this,db);
 
+        BroadcastReceiver receiver = new MyBroadcastReceiver();
 
 
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("CHARACTER_REMOVED");
+        this.registerReceiver(receiver, filter);
 
         List<CharacterItem> list = db.getAllCharacters();
         CharacterItem selectedCharacter = db.getSelectedCharacter();
@@ -62,11 +71,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public DatabaseHandler getDB(){
-        return db;
-    }
-
-
 
 
     public void makeToast(String message){
@@ -81,6 +85,21 @@ public class MainActivity extends AppCompatActivity {
         mCharacterDataAdapter.notifyDataSetChanged();
         findViewById(R.id.content_main).bringToFront();
 
+    }
+
+    public class MyBroadcastReceiver extends BroadcastReceiver {
+        private static final String TAG = "MyBroadcastReceiver";
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if(action!=null) {
+                if (action.equals("CHARACTER_REMOVED")) {
+                    mCharacterDataAdapter.refresh();
+                }
+            }
+
+        }
     }
 
 }

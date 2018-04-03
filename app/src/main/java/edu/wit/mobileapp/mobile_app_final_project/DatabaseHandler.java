@@ -87,7 +87,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
        // createPlayerTable();
     }
 
-    public void deleteCharacter(String name, int invID){
+    public void deleteCharacter(String name){
         if(getSelectedCharacter().name.equals(name)){
             Cursor cursor = db.rawQuery("SELECT name FROM player_sheets LIMIT 2",null);
             if (cursor.getCount()>0) {
@@ -104,8 +104,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             cursor.close();
 
         }
+
+        Cursor cursor = db.rawQuery("SELECT inventory FROM player_sheets WHERE name=\""+name+"\"",null);
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();
+            int invID = cursor.getInt(0);
+            db.execSQL("DROP TABLE IF EXISTS INV_"+invID);
+        }
+
         db.delete("player_sheets", "name=?" , new String[]{name});
-        db.execSQL("DROP TABLE IF EXISTS INV_"+invID);
     }
 
     boolean createCharacter(String characterName, String chosenClass, String race, String alignment, String proficiencies, int pcLevel, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int speed, int initiative, int hitPoints){

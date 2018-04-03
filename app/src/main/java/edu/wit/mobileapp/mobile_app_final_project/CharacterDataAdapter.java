@@ -1,15 +1,18 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,9 +83,8 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
         }
         gridItems = db.getAllCharacters();
         notifyDataSetChanged();
-
-
     }
+
 
     @NonNull
     public View getView(int position, View convertView, @NonNull final ViewGroup parent){
@@ -127,9 +129,9 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
                 args.putString("name", viewHolder.name.getText().toString());
                 fireMissilesDialogFragment.setArguments(args);
                 fireMissilesDialogFragment.show(mContext.getFragmentManager(),"Testing");
-
-                db.deleteCharacter(viewHolder.name.getText().toString(), item.inventorySlot);
                 refresh();
+
+
             }
         });
 
@@ -141,16 +143,20 @@ public class CharacterDataAdapter extends ArrayAdapter<CharacterItem> {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-            builder.setMessage("Delete " + "test" + "?")
+            final String name = getArguments().getString("name");
+            builder.setMessage("Delete " + name + "?")
                     .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
                         }
                     })
                     .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // User cancelled the dialog
+                            DatabaseHandler db = new DatabaseHandler(getContext());
+                            db.deleteCharacter(name);
+                            Intent intent = new Intent("CHARACTER_REMOVED");
+                            getContext().sendBroadcast(intent);
+
                         }
                     });
             // Create the AlertDialog object and return it
