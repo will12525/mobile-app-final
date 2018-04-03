@@ -41,7 +41,7 @@ public class CombatActivity extends AppCompatActivity {
 
         List<invItem> processList = db.getCharacterInventory();
 
-        for(int i = 0; i < processList.size(); i++)
+        for(int i = 1; i < processList.size(); i++)
         {
             if(processList.get(i).type == 1) {
                 String tempName = processList.get(i).itemName;
@@ -53,7 +53,7 @@ public class CombatActivity extends AppCompatActivity {
             }
         }
 
-       /* battleItemListing.add(new BattleItem("Xtreme Teen Bible",1, 12, "holy", true));
+        /* battleItemListing.add(new BattleItem("Xtreme Teen Bible",1, 12, "holy", true));
         battleItemListing.add(new BattleItem("Umbra Staff",1, 12, "LUP", true));
         battleItemListing.add(new BattleItem("Railsplitter",1, 12,"Trees", false));
         battleItemListing.add(new BattleItem("Flaming Raging Poisoning Sword of Doom",1, 12, "Taako", false));
@@ -63,7 +63,6 @@ public class CombatActivity extends AppCompatActivity {
 
         BattleItemAdapter adapter = new BattleItemAdapter(battleItemListing);
         rv.setAdapter(adapter);
-
         if(battleItemListing.size() == 0)
         {
             // Do a thing

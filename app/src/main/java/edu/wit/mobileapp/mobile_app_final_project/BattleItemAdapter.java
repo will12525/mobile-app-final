@@ -11,14 +11,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by camasok on 2/16/2018.
  */
 
 public class BattleItemAdapter extends  RecyclerView.Adapter<BattleItemAdapter.ItemViewHolder>{
+
     public static class ItemViewHolder extends  RecyclerView.ViewHolder
     {
+        private int rollDice(int count, int max){
+            int returnValue = 0;
+            for(int x = 0; x < count; x++){
+                returnValue += new Random().nextInt(max)+1;
+            }
+            return returnValue;//(new Random().nextInt(max)+1)*count;
+        }
+
         CardView cv;
         TextView itemName;
         TextView damageDice;
@@ -43,8 +53,9 @@ public class BattleItemAdapter extends  RecyclerView.Adapter<BattleItemAdapter.I
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                CharSequence text = "The Roll for " + itemName.getText() + " goes here: \n" + damageDice.getText();
+                String tempDice =  damageDice.getText().toString();
+                String[] diceData =  tempDice.split("d");
+                CharSequence text = "The Roll for " + itemName.getText() + " is: \n" + rollDice(Integer.parseInt(diceData[0]), Integer.parseInt(diceData[1]));
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(imageButton.getContext(), text, duration);
@@ -91,4 +102,6 @@ public class BattleItemAdapter extends  RecyclerView.Adapter<BattleItemAdapter.I
     {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
+
 }
