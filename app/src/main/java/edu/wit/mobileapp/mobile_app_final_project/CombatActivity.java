@@ -53,6 +53,8 @@ public class CombatActivity extends AppCompatActivity {
             }
         }
 
+
+
         /* battleItemListing.add(new BattleItem("Xtreme Teen Bible",1, 12, "holy", true));
         battleItemListing.add(new BattleItem("Umbra Staff",1, 12, "LUP", true));
         battleItemListing.add(new BattleItem("Railsplitter",1, 12,"Trees", false));
