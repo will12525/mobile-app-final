@@ -128,7 +128,12 @@ public class DrawerFunctions {
         else if(id == R.id.invMenu){
             drawer.closeDrawer(GravityCompat.START);
             if(!context.getClass().equals(inv.class)){
-                context.startActivity(new Intent(context, inv.class));
+                if(db.getSelectedCharacter()!=null){
+                    context.startActivity(new Intent(context, inv.class));
+                } else {
+                    Toast.makeText(context.getApplicationContext(), "Please create a character to check inventory", Toast.LENGTH_LONG).show();
+                    return;
+                }
             } else{
                 Toast.makeText(context.getApplicationContext(), "Already on Inventory", Toast.LENGTH_SHORT).show();
                 return;
@@ -137,7 +142,12 @@ public class DrawerFunctions {
         else if(id == R.id.spellsMenu){
             drawer.closeDrawer(GravityCompat.START);
             if(!context.getClass().equals(spells.class)){
-                context.startActivity(new Intent(context, spells.class));
+                if(db.getSelectedCharacter()!=null){
+                    context.startActivity(new Intent(context, spells.class));
+                } else {
+                    Toast.makeText(context.getApplicationContext(), "Please create a character to check spells", Toast.LENGTH_LONG).show();
+                    return;
+                }
             } else{
                 Toast.makeText(context.getApplicationContext(), "Already on Spells page", Toast.LENGTH_SHORT).show();
             }
@@ -155,9 +165,12 @@ public class DrawerFunctions {
         else if(id == R.id.combatMenu){
             drawer.closeDrawer(GravityCompat.START);
             if(!context.getClass().equals(CombatActivity.class)){
-                Intent intent = new Intent(context, CombatActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                context.startActivity(intent);
+                if(db.getSelectedCharacter()!=null) {
+                    context.startActivity(new Intent(context, CombatActivity.class));
+                } else {
+                    Toast.makeText(context.getApplicationContext(), "Please create a character to use combat", Toast.LENGTH_LONG).show();
+                    return;
+                }
             } else{
                 Toast.makeText(context.getApplicationContext(), "Already on Combat page", Toast.LENGTH_SHORT).show();
             }
