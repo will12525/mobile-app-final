@@ -204,4 +204,8 @@ public class spells extends AppCompatActivity {
     {
         listDataChild.put(listDataHeader.get(spLvl), Name);
     }
+    public void repopulate(List<spellItem> repop)
+    {
+    }
+
 }
