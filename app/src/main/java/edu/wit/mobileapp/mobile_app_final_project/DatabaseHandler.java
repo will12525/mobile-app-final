@@ -172,11 +172,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             }
         }while(!uniqueID);
 
-        String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER)";
+        String playerINV = "CREATE TABLE IF NOT EXISTS INV_"+ID+" (itemName TEXT, itemWeight TEXT, description TEXT, damageType TEXT, value TEXT, die INTEGER, numDie INTEGER, modifiedAC INTEGER, itemType INTEGER)";
         db.execSQL(playerINV);
 
         String playerSpells = "CREATE TABLE IF NOT EXISTS SPELLS_"+ID+" (spellName TEXT, spellDescription TEXT, spellDamageType TEXT, spellLevel INTEGER, spellDie INTEGER, spellDieNumber INTEGER, spellType INTEGER)";
-        db.execSQL(playerINV);
+        db.execSQL(playerSpells);
 
         Log.v(getClass().toString()," character inventory created with ID: "+ID);
 
@@ -202,6 +202,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 item.die = cursor.getInt(5);
                 item.numDie = cursor.getInt(6);
                 item.ac = cursor.getInt(7);
+                item.type = cursor.getInt(8);
+
                 items.add(item);
             } while(cursor.moveToNext());
         }
@@ -238,9 +240,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
     public spellItem addSpell(spellItem item){
       //  String playerSpells = "CREATE TABLE IF NOT EXISTS SPELLS_"+ID+" (spellName TEXT, spellDescription TEXT, spellDamageType TEXT, spellLevel INTEGER, spellDie INTEGER, spellDieNumber INTEGER, spellType INTEGER)";
-
-
-
+        
         ContentValues values = new ContentValues();
         values.put("spellName",item.spellName);
         values.put("spellDescription",item.spellDescription);
