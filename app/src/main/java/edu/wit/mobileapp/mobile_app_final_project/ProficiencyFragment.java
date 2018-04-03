@@ -33,7 +33,7 @@ public class ProficiencyFragment extends Fragment {
     private int numberProf;
     private String text;
     private String[] possibleSkills;
-    private static int selectedItemCounter = 0;
+    private static int selectedItemCounter;
 
 
     @Override
@@ -135,6 +135,8 @@ public class ProficiencyFragment extends Fragment {
 
         listView.getLayoutParams().height = (125 * possibleSkills.length + 40);
         bundle.putInt("numberProf", numberProf);
+
+        selectedItemCounter = 0;
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
