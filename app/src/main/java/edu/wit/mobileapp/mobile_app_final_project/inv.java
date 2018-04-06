@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,8 @@ public class inv extends AppCompatActivity {
         itemBtn =findViewById(R.id.btnItem);
         adapter = new invItemAdapter(this, 0,list);
         lv=findViewById(R.id.invList);
+        View header = getLayoutInflater().inflate(R.layout.inv_list_header, lv, false);
+        lv.addHeaderView(header);
         lv.setAdapter(adapter);
         repopulate();
         setLoad();
@@ -251,7 +254,7 @@ public class inv extends AppCompatActivity {
                 LayoutInflater inf = LayoutInflater.from(mContext);
                 final View descView = inf.inflate(R.layout.inventory_display_dialog, null);
                 final TextView display = (TextView)descView.findViewById(R.id.invDisplayDialog);
-                final invItem itemToDisp = list.get(i);
+                final invItem itemToDisp = list.get(i-1);
 
                 ADBDisp.setTitle("Item Description");
                 ADBDisp.setView(descView);
@@ -292,23 +295,33 @@ public class inv extends AppCompatActivity {
     public void repopulate() {
         List<invItem> temp = db.getCharacterInventory();
         setLoad();
-        if (temp.isEmpty()) {
+        list.clear();
+/*        if (temp.isEmpty()) {
             invItem header = new invItem();
             header.itemName = "Item Name";
             header.itemWeight = "Weight";
             header.value = "Val";
             list.add(header);
             db.addItem(header);
-        } else {
+        } else {*/
             for (int i = 0; i < temp.size(); i++) {
-                if(!temp.get(i).itemWeight.equals("Weight"))
+                if(!temp.get(i).itemWeight.equals("Weight")) {
                     wtCounter += Double.parseDouble(temp.get(i).itemWeight);
-                list.add(temp.get(i));
+                }
+                if(list.contains(temp.get(i))==false) {
+                    list.add(temp.get(i));
+                }
             }
-        }
+        //}
         adapter.notifyDataSetChanged();
     }
     public void setLoad(){
         tvWeight.setText("Current Load: "+wtCounter+" / "+(db.getSelectedCharacter().strength*15)+"( max load");
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        repopulate();
+        Log.v(getClass().toString(), "Repopulated inventory");
     }
 }

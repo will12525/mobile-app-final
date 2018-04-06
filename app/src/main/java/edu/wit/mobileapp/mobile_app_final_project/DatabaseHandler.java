@@ -235,6 +235,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         long rowId = db.insert("INV_"+invID, null, values);
 
         item.itemID = (int)rowId;
+        Log.v(getClass().toString(),"Item added to inventoryID: "+invID+" with itemName: "+item.itemName);
 
         return item;
     }
