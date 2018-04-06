@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         then comment below line and uncomment above line.
         Now it should run fine
         */
-       //clearDatabase();
+      // clearDatabase();
     }
 
     @Override
@@ -240,7 +240,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
     public spellItem addSpell(spellItem item){
       //  String playerSpells = "CREATE TABLE IF NOT EXISTS SPELLS_"+ID+" (spellName TEXT, spellDescription TEXT, spellDamageType TEXT, spellLevel INTEGER, spellDie INTEGER, spellDieNumber INTEGER, spellType INTEGER)";
-        
+
         ContentValues values = new ContentValues();
         values.put("spellName",item.spellName);
         values.put("spellDescription",item.spellDescription);
