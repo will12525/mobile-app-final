@@ -6,7 +6,7 @@ package edu.wit.mobileapp.mobile_app_final_project;
 
 public class spellItem {
     String spellName;
-    int spellLevel;
+    int spellLevel=0;
     String spellDescription;
     int spDie=0;
     int spNumDie=0;
@@ -19,4 +19,9 @@ public class spellItem {
     {
         return spellDescription;
     }
+    public String toString(){
+        String out = "Spell Name: "+spellName+" spLevel: "+spellLevel;
+        return out;
+    }
 }
+

@@ -11,43 +11,54 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Spell Name: "/>
+            android:text="Spell Name: "
+            android:textSize="25sp"/>
         <EditText
             android:id="@+id/spellNameIn"
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_width="200sp"
             android:layout_height="wrap_content"
-            android:hint="Enter Spell Name Here"/>
+            android:hint="Enter Spell Name Here"
+            android:background="@drawable/text_input_border"
+            android:minHeight="30dp"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Spell Level: " />
+            android:text="Spell Level: "
+            android:textSize="25sp" />
+
         <Spinner
             android:id="@+id/splvlDropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"/>
+            android:background="@drawable/text_input_border"
+            android:gravity="center_horizontal"
+            android:minHeight="30dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="25sp">
 
         <TextView
-            android:layout_width="255dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
             android:text="Does spell Roll to hit?\n(tick radio button for yes)"
-            android:textSize="15sp" />
+            android:textSize="25sp" />
 
         <RadioButton
             android:id="@+id/toCombatRadioSp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+            android:layout_width="50sp"
+            android:layout_height="50sp"
             android:text="" />
     </LinearLayout>
     <LinearLayout
@@ -56,59 +67,72 @@
         android:layout_marginTop="25sp">
 
         <TextView
+            android:textSize = "25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Spell Damage: " />
 
         <EditText
             android:id="@+id/spellDmgDieNumIn"
-            android:layout_width="wrap_content"
+            android:layout_width="40sp"
             android:layout_height="wrap_content"
-            android:hint ="number of die"
-            android:inputType="number"/>
+            android:gravity="center"
+            android:inputType="number"
+            android:background="@drawable/text_input_border"
+            android:minHeight="30dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="d"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"/>
         <EditText
             android:id="@+id/spellDmgDieTypeIn"
-            android:layout_width="wrap_content"
+            android:layout_width="40sp"
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:hint="type of die"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:background="@drawable/text_input_border"
+            android:minHeight="30dp"/>
     </LinearLayout>
     <LinearLayout
+        android:layout_marginTop="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Spell Damage Type:" />
+            android:text="Spell Damage Type:"
+            android:textSize="25sp"/>
 
         <EditText
             android:id="@+id/spellDmgTypeIn"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint ="Damage Type here,\n leave empty if N/A"/>
+            android:hint ="  leave empty if N/A  "
+            android:background="@drawable/text_input_border"
+            android:minHeight="30dp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <TextView
+            android:layout_marginTop="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Spell Description:" />
+            android:text="Spell Description:"
+            android:textSize="25sp"/>
 
         <EditText
             android:id="@+id/spellDescIn"
             android:layout_width="275dp"
-            android:layout_height="200dp"
-            android:hint ="Type Spell Description here"/>
-    </LinearLayout>
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:hint ="Type Spell Description here"
+            android:background="@drawable/text_input_border"
+            android:minHeight="30dp"/>
 
 
 </LinearLayout>

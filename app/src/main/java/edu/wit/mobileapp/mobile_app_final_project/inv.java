@@ -93,6 +93,9 @@ public class inv extends AppCompatActivity {
                     }
                 });
                 //show dialog
+                if (dialogView.getParent()!=null) {
+                    ((ViewGroup) dialogView.getParent()).removeView(dialogView);
+                }
                 alertDialog = ADB.create();
                 alertDialog.show();
 
@@ -150,6 +153,10 @@ public class inv extends AppCompatActivity {
                             }
                         });
                 //show dialog
+                if(miscView.getParent()!=null)
+                {
+                    ((ViewGroup)miscView.getParent()).removeView(miscView);
+                }
                 AlertDialog miscDialog = ADB.create();
 
                 miscDialog.show();
@@ -200,6 +207,10 @@ public class inv extends AppCompatActivity {
                                 dialogInterface.cancel();
                             }
                         });
+                if(wepView.getParent()!=null)
+                {
+                    ((ViewGroup)wepView.getParent()).removeView(wepView);
+                }
                 AlertDialog AD = ADB.create();
                 AD.show();
             }

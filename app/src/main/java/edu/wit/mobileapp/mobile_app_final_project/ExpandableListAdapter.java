@@ -25,6 +25,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> _listDataHeader;//Header Titles
     //Child data in format of header title, child title
     private HashMap<String, List<spellItem>> _listDataChild;
+    private DatabaseHandler db;
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<spellItem>> listDataChild) {
         this._context = context;
@@ -45,6 +46,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final spellItem childText = (spellItem) getChild(groupPosition, childPosition);
+        db = new DatabaseHandler(_context);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,6 +62,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 list = _listDataChild.get(_listDataHeader.get(groupPosition));
+                db.deleteSpell(list.get(childPosition));
                 list.remove(childPosition);
                 _listDataChild.put(_listDataHeader.get(groupPosition), list);
                 notifyDataSetChanged();

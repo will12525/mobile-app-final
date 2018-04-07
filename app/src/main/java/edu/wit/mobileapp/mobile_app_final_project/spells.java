@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,6 +51,7 @@ public class spells extends AppCompatActivity {
         expListView=findViewById(R.id.lvExp);
         listAdapter=new ExpandableListAdapter(mContext, listDataHeader, listDataChild);
         expListView.setAdapter(listAdapter);
+        repopulate();
 
         btn = (Button)findViewById(R.id.AddSpell);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +85,7 @@ public class spells extends AppCompatActivity {
                                 spellIn.spellDescription=etSpDescription.getText().toString();
                                 lvlSelect.setOnItemSelectedListener(null);
                                 int spLvl = (int)lvlSelect.getSelectedItemId();
+                                Log.v(getClass().toString(),"spLvl: " + spLvl);
                                 spellIn.spellLevel=spLvl;
                                 spellIn.spDie=Integer.parseInt(etSpDmgDieTypeIn.getText().toString());
                                 spellIn.spNumDie=Integer.parseInt(etSpDmgDienumIn.getText().toString());
@@ -93,6 +96,7 @@ public class spells extends AppCompatActivity {
                                     spellIn.spType=0;
                                 List<spellItem> list = listDataChild.get(listDataHeader.get(spLvl));
                                 list.add(spellIn);
+                                db.addSpell(spellIn);
                                 listDataChild.put(listDataHeader.get(spLvl), list);
                                 listAdapter.notifyDataSetChanged();
                                 listAdapter.notifyDataSetInvalidated();
@@ -204,8 +208,25 @@ public class spells extends AppCompatActivity {
     {
         listDataChild.put(listDataHeader.get(spLvl), Name);
     }
-    public void repopulate(List<spellItem> repop)
-    {
+
+    private void repopulate(){
+        List<spellItem> fromDb = db.getCharacterSpells();
+        for(int i=0; i<fromDb.size(); i++){
+            Log.v(getClass().toString(),fromDb.get(i).toString());
+            List<spellItem>spLvlRow = listDataChild.get(listDataHeader.get(fromDb.get(i).spellLevel));
+            spLvlRow.add(fromDb.get(i));
+            listDataChild.put(listDataHeader.get(fromDb.get(i).spellLevel), spLvlRow);
+            listAdapter.notifyDataSetChanged();
+            listAdapter.notifyDataSetInvalidated();
+            Log.v(getClass().toString(),"repopulted Spells");
+        }
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        repopulate();
+        Log.v(getClass().toString(), "Repopulated spells");
+    }
+
 
 }

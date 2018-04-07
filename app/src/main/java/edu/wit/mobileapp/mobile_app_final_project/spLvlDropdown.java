@@ -1,6 +1,7 @@
 package edu.wit.mobileapp.mobile_app_final_project;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -9,9 +10,10 @@ import android.widget.AdapterView;
  */
 
 public class spLvlDropdown extends Activity implements AdapterView.OnItemSelectedListener{
-    int returnPosition;
+    int returnPosition=0;
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id){
         returnPosition=pos;
+        Log.v(getClass().toString(),"SpellLevel out: "+returnPosition);
     }
     public void onNothingSelected(AdapterView<?> parent)
     {

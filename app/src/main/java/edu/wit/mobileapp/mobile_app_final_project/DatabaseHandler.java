@@ -211,6 +211,31 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         cursor.close();
         return items;
     }
+//spellName TEXT, spellDescription TEXT, spellDamageType TEXT, spellLevel INTEGER, spellDie INTEGER, spellDieNumber INTEGER, spellType INTEGER)";
+
+    List<spellItem> getCharacterSpells(){
+        int spellID = getSelectedCharacter().inventorySlot;
+        Cursor cursor = db.rawQuery("SELECT * FROM SPELLS_"+spellID, null);
+        List<spellItem> items = new ArrayList<>();
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();
+            do {
+                spellItem item = new spellItem();
+                item.spellName = cursor.getString(0);
+                item.spellDescription = cursor.getString(1);
+                item.spDmgType= cursor.getString(2);
+                item.spellLevel = cursor.getInt(3);
+                item.spDie = cursor.getInt(4);
+                item.spNumDie = cursor.getInt(5);
+                item.spType = cursor.getInt(6);
+
+                items.add(item);
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        return items;
+    }
 
 
 
@@ -253,9 +278,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         int invID = getSelectedCharacter().inventorySlot;
 
-        long rowId = db.insert("INV_"+invID, null, values);
+        long rowId = db.insert("SPELLS_"+invID, null, values);
 
         item.itemID = (int)rowId;
+        Log.v(getClass().toString(),"Spell added to inventoryID: "+invID+" with itemName: "+item.spellName);
 
         return item;
     }
@@ -267,6 +293,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public void deleteSpell(spellItem item){
         int spellID = getSelectedCharacter().inventorySlot;
         db.delete("SPELLS_"+spellID, "spellName=?" , new String[]{item.spellName});
+        Log.v(getClass().toString(),"Spell removed from spellID: "+spellID+" with spellName: "+item.spellName);
 
     }
 

@@ -32,7 +32,7 @@
     <Button
         android:id="@+id/deleteInvBtn"
         style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
+        android:layout_width="35sp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:background="@android:color/holo_red_light"
