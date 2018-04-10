@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="edu.wit.mobileapp.mobile_app_final_project.MainActivity"
+    tools:context="edu.wit.mobileapp.dndMobileFinalProject.MainActivity"
     tools:showIn="@layout/activity_main"
     android:layout_marginTop="?actionBarSize"
     >

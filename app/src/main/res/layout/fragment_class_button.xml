@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="edu.wit.mobileapp.mobile_app_final_project.ClassButton">
+    tools:context="edu.wit.mobileapp.dndMobileFinalProject.ClassButton">
 
     <Button
         android:id="@+id/classConfirmButton"

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.wit.mobileapp.mobile_app_final_project.DiceControl">
+    tools:context="edu.wit.mobileapp.dndMobileFinalProject.DiceControl">
 
     <include layout="@layout/to_include"
         android:id="@+id/drawer_stuff"/>

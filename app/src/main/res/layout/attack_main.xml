@@ -7,7 +7,7 @@
     android:layout_marginTop="?actionBarSize"
     tools:showIn="@layout/combat_activity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="edu.wit.mobileapp.mobile_app_final_project.MainActivity">
+    tools:context="edu.wit.mobileapp.dndMobileFinalProject.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
